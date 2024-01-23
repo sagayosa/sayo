@@ -10,10 +10,11 @@ type BaseResp struct {
 	Data interface{} `json:"data"`
 }
 
-var successResp BaseResp = BaseResp{
-	Code: 200,
-	Msg:  "Successful",
-}
+// func (r *BaseResp) ToString() string {
+// 	bts, err := json.Marshal(r)
+// 	sayolog.Msg("BaseResp Marshal failed").Err(err).Error()
+// 	return string(bts)
+// }
 
 func NewBaseRespByError(err error) *BaseResp {
 	code, msg := sayoerror.GetErrMsgByErr(err)
@@ -24,6 +25,9 @@ func NewBaseRespByError(err error) *BaseResp {
 	}
 }
 
-func NewSuccessResp() BaseResp {
-	return successResp
+func NewSuccessResp() *BaseResp {
+	return &BaseResp{
+		Code: 200,
+		Msg:  "successful",
+	}
 }

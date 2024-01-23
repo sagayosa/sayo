@@ -11,10 +11,10 @@ const (
 )
 
 type ModuleConfig struct {
-	Identifier string
-	Address    string
-	Port       string
-	Role       string
+	Identifier string `json:"identifier"`
+	Address    string `json:"address"`
+	Port       string `json:"port"`
+	Role       string `json:"role"`
 }
 
 type ModuleInfo struct {
