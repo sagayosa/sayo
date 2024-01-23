@@ -20,8 +20,8 @@ type ModuleConfig struct {
 type ModuleInfo struct {
 	ModuleConfig
 
-	ConfigPath string
-	SHA256     string
+	ConfigPath string `json:"config_path"`
+	// SHA256     string `json:"sha256"`
 }
 
 type Module struct {

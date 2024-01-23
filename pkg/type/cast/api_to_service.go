@@ -11,3 +11,10 @@ func RegisterModuleReq(req *apitype.RegisterModuleReq) *servicetype.RegisterModu
 
 	return res
 }
+
+func GetModulesReq(req *apitype.GetModulesReq) *servicetype.GetModulesReq {
+	res := &servicetype.GetModulesReq{}
+	FillSameField(req, res)
+
+	return res
+}

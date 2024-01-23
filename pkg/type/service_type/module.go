@@ -12,5 +12,5 @@ type GetModulesReq struct {
 }
 
 type GetModulesResp struct {
-	Modules []*module.Module
+	Modules []*module.Module `json:"modules"`
 }

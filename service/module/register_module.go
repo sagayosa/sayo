@@ -15,16 +15,16 @@ func (s *ModuleServer) RegisterModule(req *servicetype.RegisterModuleReq) error 
 		return err
 	}
 
-	sha, err := utils.SHA256(registerPath)
-	if err != nil {
-		return err
-	}
+	// sha, err := utils.SHA256(registerPath)
+	// if err != nil {
+	// 	return err
+	// }
 
 	mod := module.Module{
 		ModuleInfo: module.ModuleInfo{
 			ModuleConfig: *config,
 			ConfigPath:   registerPath,
-			SHA256:       sha,
+			// SHA256:       sha,
 		},
 	}
 	module.GetInstance().RegisterModule(&mod)

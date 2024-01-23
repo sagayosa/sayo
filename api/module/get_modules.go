@@ -12,24 +12,25 @@ import (
 )
 
 /*
-POST /module
+GET /module
 
-	json: {
-		path:string 	// Prefix path for module register.json
+	params: {
+		type:string 	// The type of request, with optional types including [role, identifier]
+		data:string 	// The data according to the type
 	}
 */
-func RegisterModule(svc *service.ServiceContext) utils.HandlerFunc {
+func Modules(svc *service.ServiceContext) utils.HandlerFunc {
 	return utils.IrisCtxJSONWrap(func(ctx iris.Context) (*apitype.BaseResp, error) {
-		var req *apitype.RegisterModuleReq
-		if err := ctx.ReadJSON(&req); err != nil {
+		req := &apitype.GetModulesReq{}
+		if err := ctx.ReadQuery(req); err != nil {
 			return apitype.NewBaseRespByError(err), err
 		}
 
-		err := module.NewModuleServer(context.Background(), svc).RegisterModule(cast.RegisterModuleReq(req))
+		resp, err := module.NewModuleServer(context.Background(), svc).Modules(cast.GetModulesReq(req))
 		if err != nil {
 			return apitype.NewBaseRespByError(err), err
 		}
 
-		return apitype.NewSuccessResp(nil), nil
+		return apitype.NewSuccessResp(resp), nil
 	})
 }

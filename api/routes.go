@@ -9,4 +9,5 @@ import (
 
 func RegisterRoutes(app *iris.Application, svc *service.ServiceContext) {
 	app.Post("/module", module.RegisterModule(svc))
+	app.Get("/module", module.Modules(svc))
 }

@@ -25,9 +25,10 @@ func NewBaseRespByError(err error) *BaseResp {
 	}
 }
 
-func NewSuccessResp() *BaseResp {
+func NewSuccessResp(data interface{}) *BaseResp {
 	return &BaseResp{
 		Code: 200,
 		Msg:  "successful",
+		Data: data,
 	}
 }
