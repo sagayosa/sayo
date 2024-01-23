@@ -1,6 +1,9 @@
 package module
 
-import "sync"
+import (
+	sayoerror "sayo_framework/pkg/sayo_error"
+	"sync"
+)
 
 var (
 	moduleCenterInstance *ModuleCenterSingleton = nil
@@ -10,6 +13,9 @@ var (
 type ModuleCenterSingleton struct {
 	roleMp   map[string][]*Module
 	roleMpMu sync.Mutex
+
+	idMp   map[string]*Module
+	idMpMu sync.Mutex
 }
 
 func (s *ModuleCenterSingleton) GetModulesByRole(role string) []*Module {
@@ -23,7 +29,26 @@ func (s *ModuleCenterSingleton) GetModulesByRole(role string) []*Module {
 	return c
 }
 
-func (s *ModuleCenterSingleton) RegisterModule(module *Module) {
+func (s *ModuleCenterSingleton) GetModuleByIdentifier(id string) []*Module {
+	s.idMpMu.Lock()
+	defer s.idMpMu.Unlock()
+
+	c, ok := s.idMp[id]
+	if !ok {
+		return nil
+	}
+	return []*Module{c}
+}
+
+func (s *ModuleCenterSingleton) RegisterModule(module *Module) error {
+	if err := s.registerModuleToIdentifier(module); err != nil {
+		return err
+	}
+	s.registerModuleToRole(module)
+	return nil
+}
+
+func (s *ModuleCenterSingleton) registerModuleToRole(module *Module) {
 	s.roleMpMu.Lock()
 	defer s.roleMpMu.Unlock()
 
@@ -35,6 +60,19 @@ func (s *ModuleCenterSingleton) RegisterModule(module *Module) {
 
 	c = append(c, module)
 	s.roleMp[module.Role] = c
+}
+
+func (s *ModuleCenterSingleton) registerModuleToIdentifier(module *Module) error {
+	s.idMpMu.Lock()
+	defer s.idMpMu.Unlock()
+
+	_, ok := s.idMp[module.Identifier]
+	if ok {
+		return sayoerror.ErrDuplicateIdentifier
+	}
+
+	s.idMp[module.Identifier] = module
+	return nil
 }
 
 func (s *ModuleCenterSingleton) UnRegisterModule(module *Module) {
@@ -63,6 +101,7 @@ func (s *ModuleCenterSingleton) ClearModule() {
 func newModuleCenterSingleton() *ModuleCenterSingleton {
 	return &ModuleCenterSingleton{
 		roleMp: make(map[string][]*Module),
+		idMp:   make(map[string]*Module),
 	}
 }
 

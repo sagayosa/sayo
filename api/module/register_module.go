@@ -11,6 +11,13 @@ import (
 	"github.com/kataras/iris/v12"
 )
 
+/*
+POST /module
+
+	json: {
+		path:string 	// Prefix path for module register.json
+	}
+*/
 func RegisterModule(svc *service.ServiceContext) utils.HandlerFunc {
 	return utils.IrisCtxJSONWrap(func(ctx iris.Context) (*apitype.BaseResp, error) {
 		var req *apitype.RegisterModuleReq

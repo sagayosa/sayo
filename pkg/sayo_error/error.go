@@ -18,9 +18,11 @@ var ()
 
 // web info error
 var (
-	ErrInternalServer = fmt.Errorf("internal server error")
+	ErrInternalServer      = fmt.Errorf("internal server error")
+	ErrDuplicateIdentifier = fmt.Errorf("duplicate identifier")
 )
 
 var errorMp map[error]int32 = map[error]int32{
-	ErrInternalServer: 1000,
+	ErrInternalServer:      1000,
+	ErrDuplicateIdentifier: 1001,
 }
