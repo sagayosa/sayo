@@ -38,7 +38,22 @@ func (s *ModuleCenterSingleton) RegisterModule(module *Module) {
 }
 
 func (s *ModuleCenterSingleton) UnRegisterModule(module *Module) {
+	s.roleMpMu.Lock()
+	defer s.roleMpMu.Unlock()
 
+	for key, slice := range s.roleMp {
+		for idx, m := range slice {
+			if m.SHA256 == module.SHA256 || m.Identifier == module.Identifier {
+				if len(slice) == 1 {
+					delete(s.roleMp, key)
+					return
+				}
+
+				newSlice := append(slice[:idx], slice[idx+1:]...)
+				s.roleMp[key] = newSlice
+			}
+		}
+	}
 }
 
 func (s *ModuleCenterSingleton) ClearModule() {

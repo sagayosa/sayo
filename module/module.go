@@ -9,9 +9,10 @@ const (
 )
 
 type ModuleConfig struct {
-	Address string
-	Port    string
-	Role    string
+	Identifier string
+	Address    string
+	Port       string
+	Role       string
 }
 
 type ModuleInfo struct {
