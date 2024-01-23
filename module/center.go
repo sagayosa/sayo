@@ -3,8 +3,8 @@ package module
 import "sync"
 
 var (
-	configCenterInstance *ModuleCenterSingleton = nil
-	configCenterOnce     sync.Once
+	moduleCenterInstance *ModuleCenterSingleton = nil
+	moduleCenterOnce     sync.Once
 )
 
 type ModuleCenterSingleton struct {
@@ -67,8 +67,8 @@ func newModuleCenterSingleton() *ModuleCenterSingleton {
 }
 
 func GetInstance() *ModuleCenterSingleton {
-	configCenterOnce.Do(func() {
-		configCenterInstance = newModuleCenterSingleton()
+	moduleCenterOnce.Do(func() {
+		moduleCenterInstance = newModuleCenterSingleton()
 	})
-	return configCenterInstance
+	return moduleCenterInstance
 }

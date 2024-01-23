@@ -1,5 +1,7 @@
 package module
 
+import "sayo_framework/pkg/utils"
+
 const (
 	RoleVoiceRecognize = "voice_recognize"
 	RoleVoiceGenerate  = "voice_generate"
@@ -24,4 +26,8 @@ type ModuleInfo struct {
 
 type Module struct {
 	ModuleInfo
+}
+
+func (m *Module) IPInfo() string {
+	return utils.StringPlus(m.Address, m.Port)
 }
