@@ -57,7 +57,9 @@ func TestRegisterModule(t *testing.T) {
 		c.ClearModule()
 
 		for _, in := range d.input {
-			c.RegisterModule(in)
+			if err := c.RegisterModule(in); err != nil {
+				t.Error(err)
+			}
 		}
 
 		for key, val := range c.roleMp {
@@ -122,6 +124,13 @@ func TestUnRegisterModule(t *testing.T) {
 			ans := d.output[key]
 			if !utils.CompareSlice(val, ans) {
 				t.Error(utils.ComparisonFailure(ans, val))
+			}
+
+			for _, v := range val {
+				moduels := c.GetModuleByIdentifier(v.Identifier)
+				if moduels == nil {
+					t.Error(utils.MissingFailure(v.Identifier))
+				}
 			}
 		}
 	}

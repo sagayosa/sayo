@@ -76,12 +76,17 @@ func (s *ModuleCenterSingleton) registerModuleToIdentifier(module *Module) error
 }
 
 func (s *ModuleCenterSingleton) UnRegisterModule(module *Module) {
+	s.UnRegisterModuleByRole(module)
+	s.UnRegisterModuleByIdentifier(module)
+}
+
+func (s *ModuleCenterSingleton) UnRegisterModuleByRole(module *Module) {
 	s.roleMpMu.Lock()
 	defer s.roleMpMu.Unlock()
 
 	for key, slice := range s.roleMp {
 		for idx, m := range slice {
-			if m.SHA256 == module.SHA256 || m.Identifier == module.Identifier {
+			if m.Identifier == module.Identifier {
 				if len(slice) == 1 {
 					delete(s.roleMp, key)
 					return
@@ -94,8 +99,13 @@ func (s *ModuleCenterSingleton) UnRegisterModule(module *Module) {
 	}
 }
 
+func (s *ModuleCenterSingleton) UnRegisterModuleByIdentifier(module *Module) {
+	delete(s.idMp, module.Identifier)
+}
+
 func (s *ModuleCenterSingleton) ClearModule() {
 	s.roleMp = make(map[string][]*Module)
+	s.idMp = make(map[string]*Module)
 }
 
 func newModuleCenterSingleton() *ModuleCenterSingleton {
