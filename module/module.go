@@ -1,4 +1,4 @@
-package configuration
+package module
 
 const (
 	RoleVoiceRecognize = "voice_recognize"
@@ -12,4 +12,15 @@ type ModuleConfig struct {
 	Address string
 	Port    string
 	Role    string
+}
+
+type ModuleInfo struct {
+	ModuleConfig
+
+	ConfigPath string
+	SHA256     string
+}
+
+type Module struct {
+	ModuleInfo
 }
