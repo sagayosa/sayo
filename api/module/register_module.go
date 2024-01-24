@@ -2,6 +2,7 @@ package module
 
 import (
 	"context"
+	baseresp "sayo_framework/pkg/base_resp"
 	apitype "sayo_framework/pkg/type/api_type"
 	"sayo_framework/pkg/type/cast"
 	"sayo_framework/pkg/utils"
@@ -24,17 +25,17 @@ POST /module
 	}
 */
 func RegisterModule(svc *service.ServiceContext) utils.HandlerFunc {
-	return utils.IrisCtxJSONWrap(func(ctx iris.Context) (*apitype.BaseResp, error) {
+	return utils.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
 		var req *apitype.RegisterModulesReq
 		if err := ctx.ReadJSON(&req); err != nil {
-			return apitype.NewBaseRespByError(err), err
+			return baseresp.NewBaseRespByError(err), err
 		}
 
 		resp, err := module.NewModuleServer(context.Background(), svc).RegisterModules(cast.RegisterModulesReq(req))
 		if err != nil {
-			return apitype.NewBaseRespByError(err).WithData(resp), err
+			return baseresp.NewBaseRespByError(err).WithData(resp), err
 		}
 
-		return apitype.NewSuccessResp(nil), nil
+		return baseresp.NewSuccessResp(nil), nil
 	})
 }

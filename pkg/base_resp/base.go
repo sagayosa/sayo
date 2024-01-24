@@ -1,4 +1,4 @@
-package apitype
+package baseresp
 
 import (
 	sayoerror "sayo_framework/pkg/sayo_error"

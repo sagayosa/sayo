@@ -2,6 +2,7 @@ package module
 
 import (
 	"context"
+	baseresp "sayo_framework/pkg/base_resp"
 	apitype "sayo_framework/pkg/type/api_type"
 	"sayo_framework/pkg/type/cast"
 	servicetype "sayo_framework/pkg/type/service_type"
@@ -21,18 +22,18 @@ GET /module
 	}
 */
 func Modules(svc *service.ServiceContext) utils.HandlerFunc {
-	return utils.IrisCtxJSONWrap(func(ctx iris.Context) (*apitype.BaseResp, error) {
+	return utils.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
 		req := &apitype.GetModulesReq{}
 		if err := ctx.ReadQuery(req); err != nil {
-			return apitype.NewBaseRespByError(err), err
+			return baseresp.NewBaseRespByError(err), err
 		}
 
 		resp, err := module.NewModuleServer(context.Background(), svc).Modules(cast.GetModulesReq(req))
 		if err != nil {
-			return apitype.NewBaseRespByError(err), err
+			return baseresp.NewBaseRespByError(err), err
 		}
 
-		return apitype.NewSuccessResp(resp), nil
+		return baseresp.NewSuccessResp(resp), nil
 	})
 }
 
@@ -44,10 +45,10 @@ GET /module/role
 	}
 */
 func ModulesByRole(svc *service.ServiceContext) utils.HandlerFunc {
-	return utils.IrisCtxJSONWrap(func(ctx iris.Context) (*apitype.BaseResp, error) {
+	return utils.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
 		req := &apitype.GetModulesByRoleReq{}
 		if err := ctx.ReadQuery(req); err != nil {
-			return apitype.NewBaseRespByError(err), err
+			return baseresp.NewBaseRespByError(err), err
 		}
 
 		resp, err := module.NewModuleServer(context.Background(), svc).Modules(&servicetype.GetModulesReq{
@@ -55,10 +56,10 @@ func ModulesByRole(svc *service.ServiceContext) utils.HandlerFunc {
 			Data: req.Role,
 		})
 		if err != nil {
-			return apitype.NewBaseRespByError(err), err
+			return baseresp.NewBaseRespByError(err), err
 		}
 
-		return apitype.NewSuccessResp(resp), nil
+		return baseresp.NewSuccessResp(resp), nil
 	})
 }
 
@@ -70,10 +71,10 @@ GET /module/identifier
 	}
 */
 func ModuleByIdentifier(svc *service.ServiceContext) utils.HandlerFunc {
-	return utils.IrisCtxJSONWrap(func(ctx iris.Context) (*apitype.BaseResp, error) {
+	return utils.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
 		req := &apitype.GetModuleByIdentifierReq{}
 		if err := ctx.ReadQuery(req); err != nil {
-			return apitype.NewBaseRespByError(err), err
+			return baseresp.NewBaseRespByError(err), err
 		}
 
 		resp, err := module.NewModuleServer(context.Background(), svc).Modules(&servicetype.GetModulesReq{
@@ -81,9 +82,9 @@ func ModuleByIdentifier(svc *service.ServiceContext) utils.HandlerFunc {
 			Data: req.Identifier,
 		})
 		if err != nil {
-			return apitype.NewBaseRespByError(err), err
+			return baseresp.NewBaseRespByError(err), err
 		}
 
-		return apitype.NewSuccessResp(resp), nil
+		return baseresp.NewSuccessResp(resp), nil
 	})
 }

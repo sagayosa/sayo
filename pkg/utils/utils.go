@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"io"
 	"os"
+	baseresp "sayo_framework/pkg/base_resp"
 	sayolog "sayo_framework/pkg/sayo_log"
-	apitype "sayo_framework/pkg/type/api_type"
 	"strings"
 
 	"github.com/kataras/iris/v12"
@@ -59,7 +59,7 @@ func JSON(filePath string, dst interface{}) error {
 
 type HandlerFunc func(iris.Context)
 
-func IrisCtxJSONWrap(f func(ctx iris.Context) (*apitype.BaseResp, error)) HandlerFunc {
+func IrisCtxJSONWrap(f func(ctx iris.Context) (*baseresp.BaseResp, error)) HandlerFunc {
 	return func(ctx iris.Context) {
 		resp, err := f(ctx)
 		if err != nil {
