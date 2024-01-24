@@ -81,11 +81,11 @@ func (s *ModuleCenterSingleton) registerModuleToIdentifier(module ModuleInterfac
 }
 
 func (s *ModuleCenterSingleton) UnRegisterModule(module ModuleInterface) {
-	s.UnRegisterModuleByRole(module)
-	s.UnRegisterModuleByIdentifier(module)
+	s.unRegisterModuleRole(module)
+	s.unRegisterModuleIdentifier(module)
 }
 
-func (s *ModuleCenterSingleton) UnRegisterModuleByRole(module ModuleInterface) {
+func (s *ModuleCenterSingleton) unRegisterModuleRole(module ModuleInterface) {
 	s.roleMpMu.Lock()
 	defer s.roleMpMu.Unlock()
 
@@ -104,7 +104,7 @@ func (s *ModuleCenterSingleton) UnRegisterModuleByRole(module ModuleInterface) {
 	}
 }
 
-func (s *ModuleCenterSingleton) UnRegisterModuleByIdentifier(module ModuleInterface) {
+func (s *ModuleCenterSingleton) unRegisterModuleIdentifier(module ModuleInterface) {
 	delete(s.idMp, module.GetIdentifier())
 }
 
