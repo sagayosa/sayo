@@ -13,6 +13,14 @@ type GetModulesReq struct {
 	Data string `param:"data"`
 }
 
+type GetModulesByRoleReq struct {
+	Role string `param:"role"`
+}
+
+type GetModuleByIdentifierReq struct {
+	Identifier string `param:"identifier"`
+}
+
 type GetModulesResp struct {
 	BaseResp
 }
