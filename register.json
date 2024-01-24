@@ -2,7 +2,7 @@
     "address": "127.0.0.1",
     "port": ":9877",
     "identifier": "Hello",
-    "role": "core",
+    "role": "plugin",
 
     "declare": {
         "root": "open",

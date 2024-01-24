@@ -11,39 +11,9 @@ import (
 func (s *ModuleServer) RegisterModules(req *servicetype.RegisterModulesReq) (*servicetype.RegisterModulesResp, error) {
 	resp := &servicetype.RegisterModulesResp{}
 	for _, m := range req.Modules {
-		registerPath := utils.StringPlus(m.ModuleConfigPath, "/", constant.ModuleRegisterFile)
-		config := &module.ModuleConfig{}
-		if err := utils.JSON(registerPath, config); err != nil {
-			resp.Modules = append(resp.Modules, struct {
-				Identifier string "json:\"identifier\""
-				UUID       string "json:\"uuid\""
-				Error      string "json:\"error\""
-			}{
-				UUID:  m.UUID,
-				Error: err.Error(),
-			})
-			continue
-		}
-
-		mod := &module.Module{
-			ModuleInfo: module.ModuleInfo{
-				ModuleConfig: *config,
-				ConfigPath:   registerPath,
-				UUID:         m.UUID,
-				// SHA256:       sha,
-			},
-		}
-		if err := module.GetInstance().RegisterModule(mod); err != nil {
-			resp.Modules = append(resp.Modules, struct {
-				Identifier string "json:\"identifier\""
-				UUID       string "json:\"uuid\""
-				Error      string "json:\"error\""
-			}{
-				Identifier: mod.Identifier,
-				UUID:       m.UUID,
-				Error:      err.Error(),
-			})
-			continue
+		mod, err := s.registerModule(m)
+		if err != nil {
+			resp.Modules = append(resp.Modules, mod)
 		}
 	}
 
@@ -51,4 +21,65 @@ func (s *ModuleServer) RegisterModules(req *servicetype.RegisterModulesReq) (*se
 		return resp, sayoerror.ErrRegisterFailed
 	}
 	return resp, nil
+}
+
+func (s *ModuleServer) registerModule(m *servicetype.RegisterModuleReqModule) (*servicetype.RegisterModulesRespModule, error) {
+	registerPath := utils.StringPlus(m.ModuleConfigPath, "/", constant.ModuleRegisterFile)
+	config := &module.ModuleConfig{}
+	if err := utils.JSON(registerPath, config); err != nil {
+		return &servicetype.RegisterModulesRespModule{
+			UUID:  m.UUID,
+			Error: err.Error(),
+		}, err
+	}
+
+	if config.Role == module.RolePlugin {
+		return s.registerPlugin(m, config)
+	}
+
+	mod := &module.Module{
+		ModuleInfo: module.ModuleInfo{
+			ModuleConfig: *config,
+			ConfigPath:   registerPath,
+			UUID:         m.UUID,
+		},
+	}
+
+	if err := module.GetInstance().RegisterModule(mod); err != nil {
+		return &servicetype.RegisterModulesRespModule{
+			UUID:  m.UUID,
+			Error: err.Error(),
+		}, err
+	}
+
+	return nil, nil
+}
+
+func (s *ModuleServer) registerPlugin(m *servicetype.RegisterModuleReqModule, config *module.ModuleConfig) (*servicetype.RegisterModulesRespModule, error) {
+	registerPath := utils.StringPlus(m.ModuleConfigPath, "/", constant.ModuleRegisterFile)
+	pluginConfig := &module.PluginConfig{}
+	if err := utils.JSON(registerPath, pluginConfig); err != nil {
+		return &servicetype.RegisterModulesRespModule{
+			UUID:  m.UUID,
+			Error: err.Error(),
+		}, err
+	}
+
+	plugin := &module.Plugin{
+		ModuleInfo: module.ModuleInfo{
+			ModuleConfig: *config,
+			ConfigPath:   registerPath,
+			UUID:         m.UUID,
+		},
+		PluginConfig: *pluginConfig,
+	}
+
+	if err := module.GetInstance().RegisterModule(plugin); err != nil {
+		return &servicetype.RegisterModulesRespModule{
+			UUID:  m.UUID,
+			Error: err.Error(),
+		}, err
+	}
+
+	return nil, nil
 }

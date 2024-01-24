@@ -2,19 +2,22 @@ package servicetype
 
 import "sayo_framework/module"
 
-type RegisterModulesReq struct {
-	Modules []*struct {
-		ModuleConfigPath string `json:"path"`
-		UUID             string `json:"uuid"`
-	} `json:"modules"`
+type RegisterModuleReqModule struct {
+	ModuleConfigPath string `json:"path"`
+	UUID             string `json:"uuid"`
 }
 
+type RegisterModulesReq struct {
+	Modules []*RegisterModuleReqModule `json:"modules"`
+}
+
+type RegisterModulesRespModule struct {
+	Identifier string `json:"identifier"`
+	UUID       string `json:"uuid"`
+	Error      string `json:"error"`
+}
 type RegisterModulesResp struct {
-	Modules []struct {
-		Identifier string `json:"identifier"`
-		UUID       string `json:"uuid"`
-		Error      string `json:"error"`
-	} `json:"errors"`
+	Modules []*RegisterModulesRespModule `json:"errors"`
 }
 
 type GetModulesReq struct {

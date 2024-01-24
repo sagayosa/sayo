@@ -2,6 +2,7 @@ package api
 
 import (
 	"sayo_framework/api/module"
+	"sayo_framework/api/plugin"
 	"sayo_framework/service"
 
 	"github.com/kataras/iris/v12"
@@ -12,4 +13,6 @@ func RegisterRoutes(app *iris.Application, svc *service.ServiceContext) {
 	app.Get("/module", module.Modules(svc))
 	app.Get("/module/role", module.ModulesByRole(svc))
 	app.Get("/module/identifier", module.ModuleByIdentifier(svc))
+
+	app.Get("/plugin", plugin.Plugins(svc))
 }

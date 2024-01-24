@@ -1,15 +1,14 @@
 package apitype
 
+import servicetype "sayo_framework/pkg/type/service_type"
+
 type RegisterModulesReq struct {
-	Modules []*struct {
-		ModuleConfigPath string `json:"path"`
-		UUID             string `json:"uuid"`
-	} `json:"modules"`
+	Modules []*servicetype.RegisterModuleReqModule `json:"modules"`
 }
 
-type RegisterModulesResp struct {
-	BaseResp
-}
+// type RegisterModulesResp struct {
+// 	BaseResp
+// }
 
 type GetModulesReq struct {
 	Type string `param:"type"`
@@ -24,6 +23,6 @@ type GetModuleByIdentifierReq struct {
 	Identifier string `param:"identifier"`
 }
 
-type GetModulesResp struct {
-	BaseResp
-}
+// type GetModulesResp struct {
+// 	BaseResp
+// }
