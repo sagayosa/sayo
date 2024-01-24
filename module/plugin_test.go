@@ -16,13 +16,15 @@ var (
 			},
 		},
 		PluginConfig: PluginConfig{
-			Declare: Declare{
-				Root:        "exampleRoot1",
-				Description: "This is the description for the first PluginConfig",
-				Args: []Arg{
-					{
-						Name:        "arg1",
-						Description: "Description for arg1",
+			Declare: []Declare{
+				{
+					Root:        "exampleRoot1",
+					Description: "This is the description for the first PluginConfig",
+					Args: []Arg{
+						{
+							Name:        "arg1",
+							Description: "Description for arg1",
+						},
 					},
 				},
 			},
@@ -38,17 +40,19 @@ var (
 			},
 		},
 		PluginConfig: PluginConfig{
-			Declare: Declare{
-				Root:        "exampleRoot2",
-				Description: "This is the description for the second PluginConfig",
-				Args: []Arg{
-					{
-						Name:        "arg2",
-						Description: "Description for arg2",
-					},
-					{
-						Name:        "arg3",
-						Description: "Description for arg3",
+			Declare: []Declare{
+				{
+					Root:        "exampleRoot2",
+					Description: "This is the description for the second PluginConfig",
+					Args: []Arg{
+						{
+							Name:        "arg2",
+							Description: "Description for arg2",
+						},
+						{
+							Name:        "arg3",
+							Description: "Description for arg3",
+						},
 					},
 				},
 			},
@@ -65,21 +69,23 @@ var (
 			},
 		},
 		PluginConfig: PluginConfig{
-			Declare: Declare{
-				Root:        "exampleRoot3",
-				Description: "This is the description for the third PluginConfig",
-				Args: []Arg{
-					{
-						Name:        "arg4",
-						Description: "Description for arg4",
-					},
-					{
-						Name:        "arg5",
-						Description: "Description for arg5",
-					},
-					{
-						Name:        "arg6",
-						Description: "Description for arg6",
+			Declare: []Declare{
+				{
+					Root:        "exampleRoot3",
+					Description: "This is the description for the third PluginConfig",
+					Args: []Arg{
+						{
+							Name:        "arg4",
+							Description: "Description for arg4",
+						},
+						{
+							Name:        "arg5",
+							Description: "Description for arg5",
+						},
+						{
+							Name:        "arg6",
+							Description: "Description for arg6",
+						},
 					},
 				},
 			},
@@ -96,25 +102,27 @@ var (
 			},
 		},
 		PluginConfig: PluginConfig{
-			Declare: Declare{
-				Root:        "exampleRoot4",
-				Description: "This is the description for the fourth PluginConfig",
-				Args: []Arg{
-					{
-						Name:        "arg7",
-						Description: "Description for arg7",
-					},
-					{
-						Name:        "arg8",
-						Description: "Description for arg8",
-					},
-					{
-						Name:        "arg9",
-						Description: "Description for arg9",
-					},
-					{
-						Name:        "arg10",
-						Description: "Description for arg10",
+			Declare: []Declare{
+				{
+					Root:        "exampleRoot4",
+					Description: "This is the description for the fourth PluginConfig",
+					Args: []Arg{
+						{
+							Name:        "arg7",
+							Description: "Description for arg7",
+						},
+						{
+							Name:        "arg8",
+							Description: "Description for arg8",
+						},
+						{
+							Name:        "arg9",
+							Description: "Description for arg9",
+						},
+						{
+							Name:        "arg10",
+							Description: "Description for arg10",
+						},
 					},
 				},
 			},

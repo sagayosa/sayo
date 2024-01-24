@@ -4,18 +4,20 @@
     "identifier": "Hello",
     "role": "plugin",
 
-    "declare": {
-        "root": "open",
-        "description": "打开文件",
-        "args": [
-            {
-                "name": "bin",
-                "description": "所要打开的文件"
-            },
-            {
-                "name": "folder",
-                "description": "文件所在的目录"
-            }
-        ]
-    }
+    "declare": [
+        {
+            "root": "open",
+            "description": "打开文件",
+            "args": [
+                {
+                    "name": "bin",
+                    "description": "所要打开的文件"
+                },
+                {
+                    "name": "folder",
+                    "description": "文件所在的目录"
+                }
+            ]
+        }
+    ]
 }

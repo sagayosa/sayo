@@ -12,7 +12,7 @@ type Declare struct {
 }
 
 type PluginConfig struct {
-	Declare `json:"declare"`
+	Declare []Declare `json:"declare"`
 }
 
 type Plugin struct {
