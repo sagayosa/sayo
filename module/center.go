@@ -5,6 +5,11 @@ import (
 	"sync"
 )
 
+type ModuleInterface interface {
+	Role() string
+	Identifier() string
+}
+
 var (
 	moduleCenterInstance *ModuleCenterSingleton = nil
 	moduleCenterOnce     sync.Once

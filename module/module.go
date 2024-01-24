@@ -8,10 +8,7 @@ const (
 	RoleCore           = "core"
 	RoleAI             = "ai"
 	RoleClient         = "client"
-)
-
-var (
-	RoleOptions = []string{RoleVoiceRecognize, RoleVoiceGenerate, RoleCore, RoleAI, RoleClient}
+	RolePlugin         = "plugin"
 )
 
 type ModuleConfig struct {
