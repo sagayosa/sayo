@@ -10,6 +10,10 @@ const (
 	RoleClient         = "client"
 )
 
+var (
+	RoleOptions = []string{RoleVoiceRecognize, RoleVoiceGenerate, RoleCore, RoleAI, RoleClient}
+)
+
 type ModuleConfig struct {
 	Identifier string `json:"identifier"`
 	Address    string `json:"address"`

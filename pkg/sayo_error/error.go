@@ -21,10 +21,14 @@ var (
 	ErrInternalServer      = fmt.Errorf("internal server error")
 	ErrDuplicateIdentifier = fmt.Errorf("duplicate identifier")
 	ErrRegisterFailed      = fmt.Errorf("modules register failed")
+	ErrUnknownType         = fmt.Errorf("unknown register type")
+	ErrInvalidRole         = fmt.Errorf("invalid register role")
 )
 
 var errorMp map[error]int32 = map[error]int32{
 	ErrInternalServer:      1000,
 	ErrDuplicateIdentifier: 1001,
 	ErrRegisterFailed:      1002,
+	ErrUnknownType:         1003,
+	ErrInvalidRole:         1004,
 }
