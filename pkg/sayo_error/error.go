@@ -20,9 +20,11 @@ var ()
 var (
 	ErrInternalServer      = fmt.Errorf("internal server error")
 	ErrDuplicateIdentifier = fmt.Errorf("duplicate identifier")
+	ErrRegisterFailed      = fmt.Errorf("modules register failed")
 )
 
 var errorMp map[error]int32 = map[error]int32{
 	ErrInternalServer:      1000,
 	ErrDuplicateIdentifier: 1001,
+	ErrRegisterFailed:      1002,
 }

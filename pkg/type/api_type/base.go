@@ -10,6 +10,11 @@ type BaseResp struct {
 	Data interface{} `json:"data"`
 }
 
+func (r *BaseResp) WithData(data interface{}) *BaseResp {
+	r.Data = data
+	return r
+}
+
 // func (r *BaseResp) ToString() string {
 // 	bts, err := json.Marshal(r)
 // 	sayolog.Msg("BaseResp Marshal failed").Err(err).Error()

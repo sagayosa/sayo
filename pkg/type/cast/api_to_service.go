@@ -5,8 +5,8 @@ import (
 	servicetype "sayo_framework/pkg/type/service_type"
 )
 
-func RegisterModuleReq(req *apitype.RegisterModuleReq) *servicetype.RegisterModuleReq {
-	res := &servicetype.RegisterModuleReq{}
+func RegisterModulesReq(req *apitype.RegisterModulesReq) *servicetype.RegisterModulesReq {
+	res := &servicetype.RegisterModulesReq{}
 	FillSameField(req, res)
 
 	return res

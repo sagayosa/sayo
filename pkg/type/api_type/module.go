@@ -1,10 +1,13 @@
 package apitype
 
-type RegisterModuleReq struct {
-	ModuleConfigPath string `json:"path"`
+type RegisterModulesReq struct {
+	Modules []*struct {
+		ModuleConfigPath string `json:"path"`
+		UUID             string `json:"uuid"`
+	} `json:"modules"`
 }
 
-type RegisterModuleResp struct {
+type RegisterModulesResp struct {
 	BaseResp
 }
 
