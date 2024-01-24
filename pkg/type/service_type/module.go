@@ -4,7 +4,6 @@ import "sayo_framework/module"
 
 type RegisterModuleReqModule struct {
 	ModuleConfigPath string `json:"path"`
-	UUID             string `json:"uuid"`
 }
 
 type RegisterModulesReq struct {
@@ -13,7 +12,7 @@ type RegisterModulesReq struct {
 
 type RegisterModulesRespModule struct {
 	Identifier string `json:"identifier"`
-	UUID       string `json:"uuid"`
+	ConfigPath string `json:"path"`
 	Error      string `json:"error"`
 }
 type RegisterModulesResp struct {

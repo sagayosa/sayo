@@ -28,8 +28,8 @@ func (s *ModuleServer) registerModule(m *servicetype.RegisterModuleReqModule) (*
 	config := &module.ModuleConfig{}
 	if err := utils.JSON(registerPath, config); err != nil {
 		return &servicetype.RegisterModulesRespModule{
-			UUID:  m.UUID,
-			Error: err.Error(),
+			ConfigPath: m.ModuleConfigPath,
+			Error:      err.Error(),
 		}, err
 	}
 
@@ -41,14 +41,13 @@ func (s *ModuleServer) registerModule(m *servicetype.RegisterModuleReqModule) (*
 		ModuleInfo: module.ModuleInfo{
 			ModuleConfig: *config,
 			ConfigPath:   registerPath,
-			UUID:         m.UUID,
 		},
 	}
 
 	if err := module.GetInstance().RegisterModule(mod); err != nil {
 		return &servicetype.RegisterModulesRespModule{
-			UUID:  m.UUID,
-			Error: err.Error(),
+			ConfigPath: m.ModuleConfigPath,
+			Error:      err.Error(),
 		}, err
 	}
 
@@ -60,8 +59,8 @@ func (s *ModuleServer) registerPlugin(m *servicetype.RegisterModuleReqModule, co
 	pluginConfig := &module.PluginConfig{}
 	if err := utils.JSON(registerPath, pluginConfig); err != nil {
 		return &servicetype.RegisterModulesRespModule{
-			UUID:  m.UUID,
-			Error: err.Error(),
+			ConfigPath: m.ModuleConfigPath,
+			Error:      err.Error(),
 		}, err
 	}
 
@@ -69,15 +68,14 @@ func (s *ModuleServer) registerPlugin(m *servicetype.RegisterModuleReqModule, co
 		ModuleInfo: module.ModuleInfo{
 			ModuleConfig: *config,
 			ConfigPath:   registerPath,
-			UUID:         m.UUID,
 		},
 		PluginConfig: *pluginConfig,
 	}
 
 	if err := module.GetInstance().RegisterModule(plugin); err != nil {
 		return &servicetype.RegisterModulesRespModule{
-			UUID:  m.UUID,
-			Error: err.Error(),
+			ConfigPath: m.ModuleConfigPath,
+			Error:      err.Error(),
 		}, err
 	}
 
