@@ -34,3 +34,11 @@ type Module struct {
 func (m *Module) IPInfo() string {
 	return utils.StringPlus(m.Address, m.Port)
 }
+
+func (m *Module) GetIdentifier() string {
+	return m.Identifier
+}
+
+func (m *Module) GetRole() string {
+	return m.Role
+}
