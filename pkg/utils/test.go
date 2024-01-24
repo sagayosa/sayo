@@ -9,3 +9,7 @@ func ComparisonFailure(ans interface{}, wrongAns interface{}) error {
 func MissingFailure(miss interface{}) error {
 	return fmt.Errorf("missing failure:\n [missing]: %v", miss)
 }
+
+func ConvetFailure(element interface{}) error {
+	return fmt.Errorf("convert failure:\n [element]: %v", element)
+}

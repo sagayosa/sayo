@@ -2,5 +2,20 @@
     "address": "127.0.0.1",
     "port": ":9877",
     "identifier": "Hello",
-    "role": "core"
+    "role": "core",
+
+    "declare": {
+        "root": "open",
+        "description": "打开文件",
+        "args": [
+            {
+                "name": "bin",
+                "description": "所要打开的文件"
+            },
+            {
+                "name": "folder",
+                "description": "文件所在的目录"
+            }
+        ]
+    }
 }
