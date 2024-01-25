@@ -32,8 +32,8 @@ func NewBaseRespByError(err error) *BaseResp {
 
 func NewSuccessResp(data interface{}) *BaseResp {
 	return &BaseResp{
-		Code: 200,
-		Msg:  "successful",
+		Code: sayoerror.SuccessCode,
+		Msg:  sayoerror.SuccessMsg,
 		Data: data,
 	}
 }

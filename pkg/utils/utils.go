@@ -1,9 +1,11 @@
 package utils
 
 import (
+	"bytes"
 	"crypto/sha256"
 	"encoding/json"
 	"io"
+	"net/http"
 	"os"
 	baseresp "sayo_framework/pkg/base_resp"
 	sayolog "sayo_framework/pkg/sayo_log"
@@ -55,6 +57,39 @@ func JSON(filePath string, dst interface{}) error {
 	}
 
 	return nil
+}
+
+func Post(URL string, data interface{}) (code int, body []byte, err error) {
+	bts, err := json.Marshal(data)
+	if err != nil {
+		return
+	}
+
+	resp, err := http.Post(URL, "application/json", bytes.NewBuffer(bts))
+	if err != nil {
+		return
+	}
+
+	defer resp.Body.Close()
+	body, err = io.ReadAll(resp.Body)
+	if err != nil {
+		return
+	}
+
+	return resp.StatusCode, body, nil
+}
+
+func UnMarshalUnknownAny(source interface{}, dest interface{}) error {
+	bts, err := json.Marshal(source)
+	if err != nil {
+		return err
+	}
+
+	return json.Unmarshal(bts, dest)
+}
+
+func ChangeRoutineWorkDir(workDir string) error {
+	return os.Chdir(workDir)
 }
 
 type HandlerFunc func(iris.Context)

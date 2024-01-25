@@ -14,6 +14,7 @@ type ModuleConfig struct {
 	Address    string `json:"address"`
 	Port       string `json:"port"`
 	Role       string `json:"role"`
+	EntryPoint string `json:"entry_point"`
 }
 
 type ModuleInfo struct {

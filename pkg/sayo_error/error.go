@@ -14,7 +14,10 @@ func GetErrMsgByErr(err error) (int32, string) {
 }
 
 // internal server error
-var ()
+var (
+	ErrRegisterJobFailed = fmt.Errorf("register job failed")
+	ErrRunModulesFailed  = fmt.Errorf("register job run modules failed")
+)
 
 // web info error
 var (
@@ -25,7 +28,15 @@ var (
 	ErrInvalidRole         = fmt.Errorf("invalid register role")
 )
 
+const (
+	SuccessCode = 200
+	SuccessMsg  = "success"
+)
+
 var errorMp map[error]int32 = map[error]int32{
+	ErrRegisterJobFailed: 500,
+	ErrRunModulesFailed:  501,
+
 	ErrInternalServer:      1000,
 	ErrDuplicateIdentifier: 1001,
 	ErrRegisterFailed:      1002,
