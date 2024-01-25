@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"io"
+	"net"
 	"net/http"
 	"os"
 	baseresp "sayo_framework/pkg/base_resp"
@@ -90,6 +91,17 @@ func UnMarshalUnknownAny(source interface{}, dest interface{}) error {
 
 func ChangeRoutineWorkDir(workDir string) error {
 	return os.Chdir(workDir)
+}
+
+// could there be a better way?
+func GetAvailablePort() (int, error) {
+	listener, err := net.Listen("tcp", ":0")
+	if err != nil {
+		return 0, err
+	}
+	defer listener.Close()
+	addr := listener.Addr().(*net.TCPAddr)
+	return addr.Port, nil
 }
 
 type HandlerFunc func(iris.Context)

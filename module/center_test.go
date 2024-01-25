@@ -6,14 +6,14 @@ import (
 )
 
 var (
-	r1 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "1", Role: RoleVoiceRecognize, Address: "127.0.0.1", Port: "9877"}}}
-	r2 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "-2", Role: RoleVoiceGenerate, Address: "192.168.131.2", Port: "8080"}}}
-	r3 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "3", Role: RoleAI, Address: "0.0.0.0", Port: "6379"}}}
-	r4 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "-4", Role: RoleClient, Address: "7.7.7.7", Port: "443"}}}
-	r5 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "5", Role: RoleCore, Address: "256.256.256.256", Port: "80"}}}
-	r6 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "-6", Role: RoleAI, Address: "127.0.0.1", Port: "2024"}}}
-	r7 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "7", Role: RoleVoiceGenerate, Address: "6.6.6.6", Port: "4048"}}}
-	r8 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "-8", Role: RoleVoiceGenerate, Address: "5.5.5.5", Port: "9877"}}}
+	r1 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "1", Role: RoleVoiceRecognize}}} // Address: "127.0.0.1", Port: "9877",
+	r2 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "-2", Role: RoleVoiceGenerate}}} // Address: "192.168.131.2", Port: "8080"
+	r3 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "3", Role: RoleAI}}}             // Address: "0.0.0.0", Port: "6379"
+	r4 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "-4", Role: RoleClient}}}        // Address: "7.7.7.7", Port: "443"
+	r5 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "5", Role: RoleCore}}}           // Address: "256.256.256.256", Port: "80"
+	r6 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "-6", Role: RoleAI}}}            // Address: "127.0.0.1", Port: "2024"
+	r7 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "7", Role: RoleVoiceGenerate}}}  // Address: "6.6.6.6", Port: "4048"
+	r8 = Module{ModuleInfo: ModuleInfo{ModuleConfig: ModuleConfig{Identifier: "-8", Role: RoleVoiceGenerate}}} // Address: "5.5.5.5", Port: "9877"
 )
 
 func TestRegisterModule(t *testing.T) {

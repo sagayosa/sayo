@@ -8,6 +8,7 @@ import (
 type ModuleInterface interface {
 	GetRole() string
 	GetIdentifier() string
+	GetIPInfo() (string, int)
 }
 
 var (

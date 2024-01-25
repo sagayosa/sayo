@@ -11,8 +11,8 @@ var (
 			ModuleConfig: ModuleConfig{
 				Identifier: "1",
 				Role:       RolePlugin,
-				Address:    "127.0.0.1",
-				Port:       "9877",
+				// Address:    "127.0.0.1",
+				// Port:       "9877",
 			},
 		},
 		PluginConfig: PluginConfig{
@@ -35,8 +35,8 @@ var (
 			ModuleConfig: ModuleConfig{
 				Identifier: "2",
 				Role:       RolePlugin,
-				Address:    "192.168.0.1",
-				Port:       "8765",
+				// Address:    "192.168.0.1",
+				// Port:       "8765",
 			},
 		},
 		PluginConfig: PluginConfig{
@@ -64,8 +64,8 @@ var (
 			ModuleConfig: ModuleConfig{
 				Identifier: "3",
 				Role:       RolePlugin,
-				Address:    "10.0.0.1",
-				Port:       "7654",
+				// Address:    "10.0.0.1",
+				// Port:       "7654",
 			},
 		},
 		PluginConfig: PluginConfig{
@@ -97,8 +97,8 @@ var (
 			ModuleConfig: ModuleConfig{
 				Identifier: "4",
 				Role:       RolePlugin,
-				Address:    "172.16.0.1",
-				Port:       "5432",
+				// Address:    "172.16.0.1",
+				// Port:       "5432",
 			},
 		},
 		PluginConfig: PluginConfig{

@@ -37,15 +37,27 @@ func (s *ModuleServer) registerModule(m *servicetype.RegisterModuleReqModule) (*
 		return s.registerPlugin(m, config)
 	}
 
+	port, err := utils.GetAvailablePort()
+	if err != nil {
+		return &servicetype.RegisterModulesRespModule{
+			Identifier: config.Identifier,
+			ConfigPath: m.ModuleConfigPath,
+			Error:      err.Error(),
+		}, err
+	}
+
 	mod := &module.Module{
 		ModuleInfo: module.ModuleInfo{
 			ModuleConfig: *config,
 			ConfigPath:   registerPath,
+			Address:      "127.0.0.1",
+			Port:         port,
 		},
 	}
 
 	if err := module.GetInstance().RegisterModule(mod); err != nil {
 		return &servicetype.RegisterModulesRespModule{
+			Identifier: config.Identifier,
 			ConfigPath: m.ModuleConfigPath,
 			Error:      err.Error(),
 		}, err

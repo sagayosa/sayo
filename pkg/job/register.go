@@ -13,6 +13,7 @@ import (
 	apitype "sayo_framework/pkg/type/api_type"
 	servicetype "sayo_framework/pkg/type/service_type"
 	"sayo_framework/pkg/utils"
+	"strconv"
 )
 
 type ActivePlugin struct {
@@ -25,8 +26,10 @@ func RegisterModulesByList(listPath string, address string) (*servicetype.Regist
 		return nil, err
 	}
 
+	resp, err := sendRequest(active, address)
 	startModules(active)
-	return sendRequest(active, address)
+
+	return resp, err
 }
 
 func startModules(active *ActivePlugin) {
@@ -41,7 +44,14 @@ func startModules(active *ActivePlugin) {
 					return err
 				}
 
-				cmd := exec.Command("cmd", "/C", cfg.EntryPoint)
+				mods := module.GetInstance().GetModuleByIdentifier(cfg.Identifier)
+				if len(mods) == 0 {
+					return fmt.Errorf("no such identifier: %v", cfg.Identifier)
+				}
+				mod := mods[0]
+				_, port := mod.GetIPInfo()
+
+				cmd := exec.Command("cmd", "/C", cfg.EntryPoint, strconv.Itoa(port))
 				_, err := cmd.Output()
 				if err != nil {
 					return err
