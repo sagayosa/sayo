@@ -9,7 +9,7 @@ import (
 	"sayo_framework/service/module"
 
 	baseresp "github.com/grteen/sayo_utils/base_resp"
-	utils "github.com/grteen/sayo_utils/utils"
+	sayoiris "github.com/grteen/sayo_utils/sayo_iris"
 
 	"github.com/kataras/iris/v12"
 )
@@ -21,8 +21,8 @@ GET /plugin
 
 	}
 */
-func Plugins(svc *service.ServiceContext) utils.HandlerFunc {
-	return utils.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
+func Plugins(svc *service.ServiceContext) sayoiris.HandlerFunc {
+	return sayoiris.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
 		req := &apitype.GetPluginsReq{}
 		if err := ctx.ReadQuery(req); err != nil {
 			return baseresp.NewBaseRespByError(err), err

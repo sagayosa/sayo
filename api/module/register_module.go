@@ -8,7 +8,7 @@ import (
 	"sayo_framework/service/module"
 
 	baseresp "github.com/grteen/sayo_utils/base_resp"
-	utils "github.com/grteen/sayo_utils/utils"
+	sayoiris "github.com/grteen/sayo_utils/sayo_iris"
 
 	"github.com/kataras/iris/v12"
 )
@@ -24,8 +24,8 @@ POST /module
 		]
 	}
 */
-func RegisterModule(svc *service.ServiceContext) utils.HandlerFunc {
-	return utils.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
+func RegisterModule(svc *service.ServiceContext) sayoiris.HandlerFunc {
+	return sayoiris.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
 		var req *apitype.RegisterModulesReq
 		if err := ctx.ReadJSON(&req); err != nil {
 			return baseresp.NewBaseRespByError(err), err
