@@ -1,8 +1,9 @@
 package module
 
 import (
-	sayoerror "sayo_framework/pkg/sayo_error"
 	"sync"
+
+	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 )
 
 type ModuleInterface interface {

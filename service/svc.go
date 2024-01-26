@@ -3,7 +3,8 @@ package service
 import (
 	"sayo_framework/pkg/config"
 	"sayo_framework/pkg/constant"
-	"sayo_framework/pkg/utils"
+
+	utils "github.com/grteen/sayo_utils/utils"
 )
 
 type ServiceContext struct {

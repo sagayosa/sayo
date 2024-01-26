@@ -2,8 +2,9 @@ package module
 
 import (
 	"sayo_framework/module"
-	sayoerror "sayo_framework/pkg/sayo_error"
 	servicetype "sayo_framework/pkg/type/service_type"
+
+	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 )
 
 const (

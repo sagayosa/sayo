@@ -1,8 +1,9 @@
 package module
 
 import (
-	"sayo_framework/pkg/utils"
 	"testing"
+
+	utils "github.com/grteen/sayo_utils/utils"
 )
 
 var (
