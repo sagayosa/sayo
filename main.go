@@ -3,7 +3,7 @@ package main
 import (
 	"sayo_framework/api"
 	"sayo_framework/pkg/job"
-	"sayo_framework/service"
+	servicecontext "sayo_framework/pkg/service_context"
 	"sync"
 	"time"
 
@@ -14,11 +14,11 @@ import (
 )
 
 var (
-	svc *service.ServiceContext
+	svc *servicecontext.ServiceContext
 )
 
 func init() {
-	svc = service.NewServiceContext()
+	svc = servicecontext.NewServiceContext()
 }
 
 func postInit(wg *sync.WaitGroup) {

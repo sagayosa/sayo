@@ -5,8 +5,9 @@ import (
 	mod "sayo_framework/module"
 	apitype "sayo_framework/pkg/type/api_type"
 	servicetype "sayo_framework/pkg/type/service_type"
-	"sayo_framework/service"
 	"sayo_framework/service/module"
+
+	servicecontext "sayo_framework/pkg/service_context"
 
 	baseresp "github.com/grteen/sayo_utils/base_resp"
 	sayoiris "github.com/grteen/sayo_utils/sayo_iris"
@@ -21,7 +22,7 @@ GET /plugin
 
 	}
 */
-func Plugins(svc *service.ServiceContext) sayoiris.HandlerFunc {
+func Plugins(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 	return sayoiris.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
 		req := &apitype.GetPluginsReq{}
 		if err := ctx.ReadQuery(req); err != nil {

@@ -5,8 +5,9 @@ import (
 	apitype "sayo_framework/pkg/type/api_type"
 	"sayo_framework/pkg/type/cast"
 	servicetype "sayo_framework/pkg/type/service_type"
-	"sayo_framework/service"
 	"sayo_framework/service/module"
+
+	servicecontext "sayo_framework/pkg/service_context"
 
 	baseresp "github.com/grteen/sayo_utils/base_resp"
 	sayoiris "github.com/grteen/sayo_utils/sayo_iris"
@@ -22,7 +23,7 @@ GET /module
 		data:string 	// The data according to the type
 	}
 */
-func Modules(svc *service.ServiceContext) sayoiris.HandlerFunc {
+func Modules(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 	return sayoiris.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
 		req := &apitype.GetModulesReq{}
 		if err := ctx.ReadQuery(req); err != nil {
@@ -45,7 +46,7 @@ GET /module/role
 		role:string
 	}
 */
-func ModulesByRole(svc *service.ServiceContext) sayoiris.HandlerFunc {
+func ModulesByRole(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 	return sayoiris.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
 		req := &apitype.GetModulesByRoleReq{}
 		if err := ctx.ReadQuery(req); err != nil {
@@ -71,7 +72,7 @@ GET /module/identifier
 		identifier:string
 	}
 */
-func ModuleByIdentifier(svc *service.ServiceContext) sayoiris.HandlerFunc {
+func ModuleByIdentifier(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 	return sayoiris.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
 		req := &apitype.GetModuleByIdentifierReq{}
 		if err := ctx.ReadQuery(req); err != nil {

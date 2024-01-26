@@ -2,15 +2,15 @@ package module
 
 import (
 	"context"
-	"sayo_framework/service"
+	servicecontext "sayo_framework/pkg/service_context"
 )
 
 type ModuleServer struct {
 	ctx context.Context
-	svc *service.ServiceContext
+	svc *servicecontext.ServiceContext
 }
 
-func NewModuleServer(ctx context.Context, svc *service.ServiceContext) *ModuleServer {
+func NewModuleServer(ctx context.Context, svc *servicecontext.ServiceContext) *ModuleServer {
 	return &ModuleServer{
 		ctx: ctx,
 		svc: svc,
