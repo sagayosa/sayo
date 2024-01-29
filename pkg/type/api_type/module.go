@@ -23,6 +23,9 @@ type GetModuleByIdentifierReq struct {
 	Identifier string `param:"identifier"`
 }
 
+type PullCenterReq struct {
+}
+
 // type GetModulesResp struct {
 // 	BaseResp
 // }

@@ -12,6 +12,7 @@ func RegisterRoutes(app *iris.Application, svc *servicecontext.ServiceContext) {
 	app.Post("/module", module.RegisterModule(svc))
 	app.Get("/module", module.Modules(svc))
 	app.Get("/module/role", module.ModulesByRole(svc))
+	app.Get("/module/pull", module.PullCenter(svc))
 	app.Get("/module/identifier", module.ModuleByIdentifier(svc))
 
 	app.Get("/plugin", plugin.Plugins(svc))

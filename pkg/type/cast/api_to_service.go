@@ -18,3 +18,10 @@ func GetModulesReq(req *apitype.GetModulesReq) *servicetype.GetModulesReq {
 
 	return res
 }
+
+func PullCenterReq(req *apitype.PullCenterReq) *servicetype.PullCenterReq {
+	res := &servicetype.PullCenterReq{}
+	FillSameField(req, res)
+
+	return res
+}
