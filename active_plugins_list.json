@@ -1,6 +1,7 @@
 {
     "modules": [
         "C:\\SoftWare\\Code\\project\\sayo\\sayo_whisper",
-        "C:\\SoftWare\\Code\\project\\sayo\\sayo_ai"
+        "C:\\SoftWare\\Code\\project\\sayo\\sayo_ai",
+        "C:\\SoftWare\\Code\\project\\sayo\\sayo_core"
     ]
 }

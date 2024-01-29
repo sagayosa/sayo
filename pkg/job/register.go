@@ -8,7 +8,6 @@ import (
 	"sayo_framework/pkg/constant"
 	apitype "sayo_framework/pkg/type/api_type"
 	servicetype "sayo_framework/pkg/type/service_type"
-	"strconv"
 
 	baseresp "github.com/grteen/sayo_utils/base_resp"
 	"github.com/grteen/sayo_utils/module"
@@ -60,10 +59,15 @@ func startModules(active string, center *module.Center) {
 				return fmt.Errorf("no such identifier: %v", cfg.Identifier)
 			}
 			mod := mods[0]
-			_, port := mod.GetIPInfo()
 
-			cmd := exec.Command("cmd", "/C", cfg.EntryPoint, strconv.Itoa(port))
-			_, err := cmd.Output()
+			info := mod.GetIPInfo()
+			_, port, err := utils.SplitIPInfo(info)
+			if err != nil {
+				return err
+			}
+
+			cmd := exec.Command("cmd", "/C", cfg.EntryPoint, port, "127.0.0.1")
+			_, err = cmd.Output()
 			if err != nil {
 				return err
 			}
