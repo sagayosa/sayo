@@ -27,56 +27,64 @@ func RegisterModulesByList(listPath string, address string) (*servicetype.Regist
 		return nil, err
 	}
 
-	resp, err := sendRequest(active, address)
-	startModules(active)
-
-	return resp, err
-}
-
-func startModules(active *ActivePlugin) {
+	resp := &servicetype.RegisterModulesResp{Modules: make([]*servicetype.RegisterModulesRespModule, 0)}
 	for _, p := range active.ModulePaths {
-		start := func(p string) {
-			err := func() error {
-				if err := utils.ChangeRoutineWorkDir(p); err != nil {
-					return err
-				}
-				cfg := &module.ModuleConfig{}
-				if err := utils.JSON(constant.ModuleRegisterFile, cfg); err != nil {
-					return err
-				}
-
-				mods := module.GetInstance().GetModuleByIdentifier(cfg.Identifier)
-				if len(mods) == 0 {
-					return fmt.Errorf("no such identifier: %v", cfg.Identifier)
-				}
-				mod := mods[0]
-				_, port := mod.GetIPInfo()
-
-				cmd := exec.Command("cmd", "/C", cfg.EntryPoint, strconv.Itoa(port))
-				_, err := cmd.Output()
-				if err != nil {
-					return err
-				}
-
-				return nil
-			}()
-			if err != nil {
-				sayolog.Err(sayoerror.ErrRunModulesFailed).Msg(err.Error())
-			}
+		res, err := sendRequest(p, address)
+		if err != nil {
+			sayolog.Err(err)
+			continue
 		}
+		startModules(p)
 
-		go start(p)
+		if res != nil {
+			resp.Modules = append(resp.Modules, res.Modules...)
+		}
 	}
+
+	return resp, nil
 }
 
-func sendRequest(active *ActivePlugin, address string) (res *servicetype.RegisterModulesResp, err error) {
+func startModules(active string) {
+	start := func(p string) {
+		err := func() error {
+			if err := utils.ChangeRoutineWorkDir(p); err != nil {
+				return err
+			}
+			cfg := &module.ModuleConfig{}
+			if err := utils.JSON(constant.ModuleRegisterFile, cfg); err != nil {
+				return err
+			}
+
+			mods := module.GetInstance().GetModuleByIdentifier(cfg.Identifier)
+			if len(mods) == 0 {
+				return fmt.Errorf("no such identifier: %v", cfg.Identifier)
+			}
+			mod := mods[0]
+			_, port := mod.GetIPInfo()
+
+			cmd := exec.Command("cmd", "/C", cfg.EntryPoint, strconv.Itoa(port))
+			fmt.Println(cmd.String())
+			_, err := cmd.Output()
+			if err != nil {
+				return err
+			}
+
+			return nil
+		}()
+		if err != nil {
+			sayolog.Err(sayoerror.ErrRunModulesFailed).Msg(err.Error())
+		}
+	}
+
+	go start(active)
+}
+
+func sendRequest(active string, address string) (res *servicetype.RegisterModulesResp, err error) {
 	req := &apitype.RegisterModulesReq{}
 
-	for _, p := range active.ModulePaths {
-		req.Modules = append(req.Modules, &servicetype.RegisterModuleReqModule{
-			ModuleConfigPath: p,
-		})
-	}
+	req.Modules = append(req.Modules, &servicetype.RegisterModuleReqModule{
+		ModuleConfigPath: active,
+	})
 
 	code, body, err := utils.Post(utils.StringPlus("http://", address, "/module"), req)
 	if err != nil {
