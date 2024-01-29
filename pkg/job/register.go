@@ -6,8 +6,10 @@ import (
 	"net/http"
 	"os/exec"
 	"sayo_framework/pkg/constant"
+	servicecontext "sayo_framework/pkg/service_context"
 	apitype "sayo_framework/pkg/type/api_type"
 	servicetype "sayo_framework/pkg/type/service_type"
+	"time"
 
 	baseresp "github.com/grteen/sayo_utils/base_resp"
 	"github.com/grteen/sayo_utils/module"
@@ -20,20 +22,21 @@ type ActivePlugin struct {
 	ModulePaths []string `json:"modules"`
 }
 
-func RegisterModulesByList(listPath string, address string, center *module.Center) (*servicetype.RegisterModulesResp, error) {
+func RegisterModulesByList(svc *servicecontext.ServiceContext) (*servicetype.RegisterModulesResp, error) {
 	active := &ActivePlugin{}
-	if err := utils.JSON(listPath, active); err != nil {
+	if err := utils.JSON(svc.Cfg.ActivePluginsList, active); err != nil {
 		return nil, err
 	}
 
 	resp := &servicetype.RegisterModulesResp{Modules: make([]*servicetype.RegisterModulesRespModule, 0)}
 	for _, p := range active.ModulePaths {
-		res, err := sendRequest(p, address)
+		res, err := sendRequest(svc, p)
 		if err != nil {
 			sayolog.Err(err)
 			continue
 		}
-		startModules(p, center)
+		time.Sleep(1 * time.Second)
+		startModules(svc, p)
 
 		if res != nil {
 			resp.Modules = append(resp.Modules, res.Modules...)
@@ -43,7 +46,7 @@ func RegisterModulesByList(listPath string, address string, center *module.Cente
 	return resp, nil
 }
 
-func startModules(active string, center *module.Center) {
+func startModules(svc *servicecontext.ServiceContext, active string) {
 	start := func(p string) {
 		err := func() error {
 			if err := utils.ChangeRoutineWorkDir(p); err != nil {
@@ -54,7 +57,7 @@ func startModules(active string, center *module.Center) {
 				return err
 			}
 
-			mods := center.GetModuleByIdentifier(cfg.Identifier)
+			mods := svc.ModuleCenter.GetModuleByIdentifier(cfg.Identifier)
 			if len(mods) == 0 {
 				return fmt.Errorf("no such identifier: %v", cfg.Identifier)
 			}
@@ -66,8 +69,8 @@ func startModules(active string, center *module.Center) {
 				return err
 			}
 
-			cmd := exec.Command("cmd", "/C", cfg.EntryPoint, port, "127.0.0.1")
-			_, err = cmd.Output()
+			cmd := exec.Command("cmd", "/C", cfg.EntryPoint, port, svc.GetAddr())
+			err = cmd.Run()
 			if err != nil {
 				return err
 			}
@@ -82,14 +85,14 @@ func startModules(active string, center *module.Center) {
 	go start(active)
 }
 
-func sendRequest(active string, address string) (res *servicetype.RegisterModulesResp, err error) {
+func sendRequest(svc *servicecontext.ServiceContext, active string) (res *servicetype.RegisterModulesResp, err error) {
 	req := &apitype.RegisterModulesReq{}
 
 	req.Modules = append(req.Modules, &servicetype.RegisterModuleReqModule{
 		ModuleConfigPath: active,
 	})
 
-	code, body, err := utils.Post(utils.StringPlus("http://", address, "/module"), req)
+	code, body, err := utils.Post(utils.StringPlus("http://", svc.GetAddr(), "/module"), req)
 	if err != nil {
 		return
 	}

@@ -3,6 +3,7 @@ package servicecontext
 import (
 	"sayo_framework/pkg/config"
 	"sayo_framework/pkg/constant"
+	"strconv"
 
 	"github.com/grteen/sayo_utils/module"
 
@@ -12,6 +13,10 @@ import (
 type ServiceContext struct {
 	Cfg          config.Config
 	ModuleCenter *module.Center
+}
+
+func (s *ServiceContext) GetAddr() string {
+	return utils.StringPlus("127.0.0.1:", strconv.Itoa(s.Cfg.Port))
 }
 
 func NewServiceContext() *ServiceContext {

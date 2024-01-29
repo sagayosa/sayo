@@ -24,6 +24,6 @@ func PullCenter(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 			return baseresp.NewBaseRespByError(err), err
 		}
 
-		return baseresp.NewSuccessResp(resp), nil
+		return baseresp.NewSuccessResp(resp.Center), nil
 	})
 }

@@ -4,11 +4,13 @@ import (
 	"sayo_framework/api"
 	"sayo_framework/pkg/job"
 	servicecontext "sayo_framework/pkg/service_context"
+	"strconv"
 	"sync"
 	"time"
 
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 	sayolog "github.com/grteen/sayo_utils/sayo_log"
+	"github.com/grteen/sayo_utils/utils"
 
 	"github.com/kataras/iris/v12"
 )
@@ -25,7 +27,7 @@ func postInit(wg *sync.WaitGroup) {
 	wg.Wait()
 	time.Sleep(1 * time.Second)
 
-	resp, err := job.RegisterModulesByList(svc.Cfg.ActivePluginsList, "127.0.0.1:8080", svc.ModuleCenter)
+	resp, err := job.RegisterModulesByList(svc)
 	if err != nil {
 		panic(err)
 	}
@@ -46,5 +48,5 @@ func main() {
 	api.RegisterRoutes(app, svc)
 
 	wg.Done()
-	app.Listen(":8080")
+	app.Listen(utils.StringPlus(":", strconv.Itoa(svc.Cfg.Port)))
 }
