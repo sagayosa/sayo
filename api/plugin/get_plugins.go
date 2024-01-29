@@ -2,7 +2,6 @@ package plugin
 
 import (
 	"context"
-	mod "sayo_framework/module"
 	apitype "sayo_framework/pkg/type/api_type"
 	servicetype "sayo_framework/pkg/type/service_type"
 	"sayo_framework/service/module"
@@ -10,6 +9,7 @@ import (
 	servicecontext "sayo_framework/pkg/service_context"
 
 	baseresp "github.com/grteen/sayo_utils/base_resp"
+	"github.com/grteen/sayo_utils/constant"
 	sayoiris "github.com/grteen/sayo_utils/sayo_iris"
 
 	"github.com/kataras/iris/v12"
@@ -31,7 +31,7 @@ func Plugins(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 
 		resp, err := module.NewModuleServer(context.Background(), svc).Modules(&servicetype.GetModulesReq{
 			Type: module.Role,
-			Data: mod.RolePlugin,
+			Data: constant.RolePlugin,
 		})
 		if err != nil {
 			return baseresp.NewBaseRespByError(err), err

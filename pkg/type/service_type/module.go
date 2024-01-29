@@ -1,6 +1,6 @@
 package servicetype
 
-import "sayo_framework/module"
+import "github.com/grteen/sayo_utils/module"
 
 type RegisterModuleReqModule struct {
 	ModuleConfigPath string `json:"path"`

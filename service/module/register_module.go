@@ -1,10 +1,10 @@
 package module
 
 import (
-	"sayo_framework/module"
 	"sayo_framework/pkg/constant"
 	servicetype "sayo_framework/pkg/type/service_type"
 
+	"github.com/grteen/sayo_utils/module"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 	utils "github.com/grteen/sayo_utils/utils"
 )
