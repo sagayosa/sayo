@@ -56,7 +56,7 @@ func (s *ModuleServer) registerModule(m *servicetype.RegisterModuleReqModule) (*
 		},
 	}
 
-	if err := module.GetInstance().RegisterModule(mod); err != nil {
+	if err := s.svc.ModuleCenter.RegisterModule(mod); err != nil {
 		return &servicetype.RegisterModulesRespModule{
 			Identifier: config.Identifier,
 			ConfigPath: m.ModuleConfigPath,
@@ -85,7 +85,7 @@ func (s *ModuleServer) registerPlugin(m *servicetype.RegisterModuleReqModule, co
 		PluginConfig: *pluginConfig,
 	}
 
-	if err := module.GetInstance().RegisterModule(plugin); err != nil {
+	if err := s.svc.ModuleCenter.RegisterModule(plugin); err != nil {
 		return &servicetype.RegisterModulesRespModule{
 			ConfigPath: m.ModuleConfigPath,
 			Error:      err.Error(),

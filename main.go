@@ -25,7 +25,7 @@ func postInit(wg *sync.WaitGroup) {
 	wg.Wait()
 	time.Sleep(1 * time.Second)
 
-	resp, err := job.RegisterModulesByList(svc.Cfg.ActivePluginsList, "127.0.0.1:8080")
+	resp, err := job.RegisterModulesByList(svc.Cfg.ActivePluginsList, "127.0.0.1:8080", svc.ModuleCenter)
 	if err != nil {
 		panic(err)
 	}

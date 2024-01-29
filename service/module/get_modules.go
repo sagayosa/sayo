@@ -3,8 +3,6 @@ package module
 import (
 	servicetype "sayo_framework/pkg/type/service_type"
 
-	"github.com/grteen/sayo_utils/module"
-
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 )
 
@@ -19,12 +17,12 @@ func (s *ModuleServer) Modules(req *servicetype.GetModulesReq) (resp *servicetyp
 	}
 	resp = &servicetype.GetModulesResp{}
 	if req.Type == Role {
-		modules := module.GetInstance().GetModulesByRole(req.Data)
+		modules := s.svc.ModuleCenter.GetModulesByRole(req.Data)
 		resp.Modules = modules
 		return
 	}
 	if req.Type == Identifier {
-		modules := module.GetInstance().GetModuleByIdentifier(req.Data)
+		modules := s.svc.ModuleCenter.GetModuleByIdentifier(req.Data)
 		resp.Modules = modules
 		return
 	}

@@ -21,7 +21,7 @@ type ActivePlugin struct {
 	ModulePaths []string `json:"modules"`
 }
 
-func RegisterModulesByList(listPath string, address string) (*servicetype.RegisterModulesResp, error) {
+func RegisterModulesByList(listPath string, address string, center *module.Center) (*servicetype.RegisterModulesResp, error) {
 	active := &ActivePlugin{}
 	if err := utils.JSON(listPath, active); err != nil {
 		return nil, err
@@ -34,7 +34,7 @@ func RegisterModulesByList(listPath string, address string) (*servicetype.Regist
 			sayolog.Err(err)
 			continue
 		}
-		startModules(p)
+		startModules(p, center)
 
 		if res != nil {
 			resp.Modules = append(resp.Modules, res.Modules...)
@@ -44,7 +44,7 @@ func RegisterModulesByList(listPath string, address string) (*servicetype.Regist
 	return resp, nil
 }
 
-func startModules(active string) {
+func startModules(active string, center *module.Center) {
 	start := func(p string) {
 		err := func() error {
 			if err := utils.ChangeRoutineWorkDir(p); err != nil {
@@ -55,7 +55,7 @@ func startModules(active string) {
 				return err
 			}
 
-			mods := module.GetInstance().GetModuleByIdentifier(cfg.Identifier)
+			mods := center.GetModuleByIdentifier(cfg.Identifier)
 			if len(mods) == 0 {
 				return fmt.Errorf("no such identifier: %v", cfg.Identifier)
 			}
@@ -63,7 +63,6 @@ func startModules(active string) {
 			_, port := mod.GetIPInfo()
 
 			cmd := exec.Command("cmd", "/C", cfg.EntryPoint, strconv.Itoa(port))
-			fmt.Println(cmd.String())
 			_, err := cmd.Output()
 			if err != nil {
 				return err
