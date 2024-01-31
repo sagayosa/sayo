@@ -39,6 +39,6 @@ func CallCoreToPullCenter(svc *servicecontext.ServiceContext) {
 
 	go func() {
 		f()
-		sayolog.Msg("%v", "core successfully pulled the module center")
+		sayolog.Msg("%v", "core successfully pulled the module center").Info()
 	}()
 }

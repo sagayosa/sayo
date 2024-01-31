@@ -35,10 +35,7 @@ func postInit(wg *sync.WaitGroup) {
 		sayolog.Err(sayoerror.ErrRegisterFailed).Msg("%v", resp)
 	}
 
-	time.Sleep(10 * time.Second)
-	if err := job.CallCoreToPullCenter(svc); err != nil {
-		panic(err)
-	}
+	job.CallCoreToPullCenter(svc)
 }
 
 // sayo_framework is only responsible for managing module configuration and distributing requests
