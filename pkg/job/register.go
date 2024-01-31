@@ -68,10 +68,11 @@ func startModules(svc *servicecontext.ServiceContext, active string) {
 			}
 
 			cmd := exec.Command("cmd", "/C", cfg.EntryPoint, port, svc.GetAddr())
-			err = cmd.Run()
+			err = cmd.Start()
 			if err != nil {
 				return err
 			}
+			fmt.Println(cmd.String())
 
 			return nil
 		}()
@@ -80,7 +81,7 @@ func startModules(svc *servicecontext.ServiceContext, active string) {
 		}
 	}
 
-	go start(active)
+	start(active)
 }
 
 func sendRequest(svc *servicecontext.ServiceContext, active string) (res *servicetype.RegisterModulesResp, err error) {
