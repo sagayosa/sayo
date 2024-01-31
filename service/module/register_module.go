@@ -17,7 +17,6 @@ func (s *ModuleServer) RegisterModules(req *servicetype.RegisterModulesReq) (*se
 			resp.Modules = append(resp.Modules, mod)
 		}
 	}
-
 	if len(resp.Modules) != 0 {
 		return resp, sayoerror.ErrRegisterFailed
 	}
@@ -77,10 +76,20 @@ func (s *ModuleServer) registerPlugin(m *servicetype.RegisterModuleReqModule, co
 		}, err
 	}
 
+	port, err := utils.GetAvailablePort()
+	if err != nil {
+		return &servicetype.RegisterModulesRespModule{
+			Identifier: config.Identifier,
+			ConfigPath: m.ModuleConfigPath,
+			Error:      err.Error(),
+		}, err
+	}
 	plugin := &module.Plugin{
 		ModuleInfo: module.ModuleInfo{
 			ModuleConfig: *config,
 			ConfigPath:   registerPath,
+			Address:      "127.0.0.1",
+			Port:         port,
 		},
 		PluginConfig: *pluginConfig,
 	}

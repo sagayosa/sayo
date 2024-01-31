@@ -9,7 +9,6 @@ import (
 	servicecontext "sayo_framework/pkg/service_context"
 	apitype "sayo_framework/pkg/type/api_type"
 	servicetype "sayo_framework/pkg/type/service_type"
-	"time"
 
 	baseresp "github.com/grteen/sayo_utils/base_resp"
 	"github.com/grteen/sayo_utils/module"
@@ -35,7 +34,6 @@ func RegisterModulesByList(svc *servicecontext.ServiceContext) (*servicetype.Reg
 			sayolog.Err(err)
 			continue
 		}
-		time.Sleep(1 * time.Second)
 		startModules(svc, p)
 
 		if res != nil {
