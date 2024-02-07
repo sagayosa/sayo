@@ -11,3 +11,8 @@ type AIDecisionRootCommandReq struct {
 type VoiceReq struct {
 	Path string `json:"path"`
 }
+
+type PluginReq struct {
+	Root  string      `json:"root"`
+	Argvs interface{} `json:"argvs"`
+}

@@ -29,12 +29,12 @@ func Voice(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 
 		modules := module.GetInstance().GetModulesByRole(constant.RoleVoiceRecognize)
 		if len(modules) == 0 {
-			return baseresp.NewBaseRespByError(sayoerror.ErrNoAIModule), sayoerror.ErrNoAIModule
+			return baseresp.NewBaseRespByError(sayoerror.ErrNoVoiceRecognizeModule), sayoerror.ErrNoVoiceRecognizeModule
 		}
 
 		result, err := sayoinnerhttp.PostVoiceRecognizeLocalFile(modules[0].GetIPInfo(), req.Path)
 		if err != nil {
-			return baseresp.NewBaseRespByError(sayoerror.ErrAIChatFailed), err
+			return baseresp.NewBaseRespByError(sayoerror.ErrNoVoiceRecognizeModule), err
 		}
 
 		return baseresp.NewSuccessResp(result), nil

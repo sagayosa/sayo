@@ -36,10 +36,10 @@ func postInit(wg *sync.WaitGroup) {
 		sayolog.Err(sayoerror.ErrRegisterFailed).Msg("%v", resp)
 	}
 
-	job.CallCoreToPullCenter(svc)
+	// job.CallCoreToPullCenter(svc)
 }
 
-// sayo_framework is only responsible for managing module configuration and distributing requests
+// sayo_framework is only responsible for managing module configuration and proxy requests
 func main() {
 	var wg sync.WaitGroup
 	wg.Add(1)

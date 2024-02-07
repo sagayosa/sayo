@@ -1,12 +1,9 @@
-package core
+package plugin
 
 import (
 	servicecontext "sayo_framework/pkg/service_context"
-	apitype "sayo_framework/pkg/type/api_type"
 
 	baseresp "github.com/grteen/sayo_utils/base_resp"
-	"github.com/grteen/sayo_utils/constant"
-	"github.com/grteen/sayo_utils/module"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 	sayoinnerhttp "github.com/grteen/sayo_utils/sayo_inner_http"
 	sayoiris "github.com/grteen/sayo_utils/sayo_iris"
@@ -14,25 +11,27 @@ import (
 )
 
 /*
-POST /proxy/core/command/voice
+POST /proxy/plugin
 
 	json: {
-		path string
+		root string
+	    argvs {} struct
 	}
 */
-func CommandVoice(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
+func Plugin(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 	return sayoiris.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
-		req := &apitype.CommandVoiceReq{}
+		req := &sayoinnerhttp.AIDecisionResp{}
 		if err := ctx.ReadJSON(&req); err != nil {
 			return baseresp.NewBaseRespByError(err), err
 		}
 
-		modules := module.GetInstance().GetModulesByRole(constant.RoleCore)
-		if len(modules) == 0 {
-			return baseresp.NewBaseRespByError(sayoerror.ErrNoCoreModule), sayoerror.ErrNoCoreModule
+		plugins := svc.ModuleCenter.GetPluginByRoot(req.Root)
+		if len(plugins) == 0 {
+			return nil, sayoerror.Msg(sayoerror.ErrNoPluginOfRoot, "root = %v", req.Root)
 		}
+		plugin := plugins[0]
 
-		if err := sayoinnerhttp.CoreVoiceCommand(modules[0].GetIPInfo(), req.Path); err != nil {
+		if err := sayoinnerhttp.PostPlugin(plugin, req); err != nil {
 			return baseresp.NewBaseRespByError(err), err
 		}
 
