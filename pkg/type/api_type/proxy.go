@@ -8,6 +8,10 @@ type AIDecisionRootCommandReq struct {
 	UserCommand string `json:"usercommand"`
 }
 
+type CompletionReq struct {
+	Content string `json:"content"`
+}
+
 type VoiceReq struct {
 	Path string `json:"path"`
 }

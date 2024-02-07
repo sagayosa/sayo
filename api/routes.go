@@ -20,7 +20,7 @@ func RegisterRoutes(app *iris.Application, svc *servicecontext.ServiceContext) {
 	app.Get("/plugin", module.Plugins(svc))
 
 	app.Post("/proxy/core/command/voice", core.CommandVoice(svc))
-	app.Post("/proxy/ai/chat/completions", ai.AIDecisionRootCommand(svc))
+	app.Post("/proxy/ai/chat/completions", ai.Completion(svc))
 	app.Post("/proxy/voice_recognize/voice", voicerecognize.Voice(svc))
 	app.Post("/proxy/plugin", plugin.Plugin(svc))
 }
