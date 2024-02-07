@@ -1,4 +1,4 @@
-package core
+package ai
 
 import (
 	servicecontext "sayo_framework/pkg/service_context"
@@ -14,28 +14,29 @@ import (
 )
 
 /*
-POST /proxy/core/command/voice
+POST /proxy/ai/chat/completions
 
 	params: {
-		path string
+		usercommand string
 	}
 */
-func CommandVoice(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
+func AIDecisionRootCommand(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 	return sayoiris.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
-		req := &apitype.CommandVoiceReq{}
+		req := &apitype.AIDecisionRootCommandReq{}
 		if err := ctx.ReadJSON(&req); err != nil {
 			return baseresp.NewBaseRespByError(err), err
 		}
 
-		modules := module.GetInstance().GetModulesByRole(constant.RoleCore)
+		modules := module.GetInstance().GetModulesByRole(constant.RoleAI)
 		if len(modules) == 0 {
 			return baseresp.NewBaseRespByError(sayoerror.ErrNoAIModule), sayoerror.ErrNoAIModule
 		}
 
-		if err := sayoinnerhttp.CoreVoiceCommand(modules[0].GetIPInfo(), req.Path); err != nil {
-			return baseresp.NewBaseRespByError(err), err
+		result, err := sayoinnerhttp.PostAIDecisionRootCommand(modules[0].GetIPInfo(), svc.ModuleCenter.GetPlugins(), req.UserCommand)
+		if err != nil {
+			return baseresp.NewBaseRespByError(sayoerror.ErrAIChatFailed), err
 		}
 
-		return baseresp.NewSuccessResp(nil), nil
+		return baseresp.NewSuccessResp(result), nil
 	})
 }

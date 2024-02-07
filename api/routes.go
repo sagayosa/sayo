@@ -3,6 +3,7 @@ package api
 import (
 	"sayo_framework/api/module"
 	"sayo_framework/api/plugin"
+	"sayo_framework/api/proxy/ai"
 	"sayo_framework/api/proxy/core"
 	servicecontext "sayo_framework/pkg/service_context"
 
@@ -19,4 +20,5 @@ func RegisterRoutes(app *iris.Application, svc *servicecontext.ServiceContext) {
 	app.Get("/plugin", plugin.Plugins(svc))
 
 	app.Post("/proxy/core/command/voice", core.CommandVoice(svc))
+	app.Post("/proxy/ai/chat/completions", ai.AIDecisionRootCommand(svc))
 }
