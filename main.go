@@ -11,6 +11,7 @@ import (
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 	sayolog "github.com/grteen/sayo_utils/sayo_log"
 	"github.com/grteen/sayo_utils/utils"
+	"github.com/kataras/iris/v12/middleware/logger"
 
 	"github.com/kataras/iris/v12"
 )
@@ -46,6 +47,16 @@ func main() {
 
 	app := iris.New()
 	app.Use(iris.Compression)
+	customLogger := logger.New(logger.Config{
+		Status:             true,
+		IP:                 true,
+		Method:             true,
+		Path:               true,
+		Query:              true,
+		MessageContextKeys: []string{"logger_message"},
+		MessageHeaderKeys:  []string{"User-Agent"},
+	})
+	app.Use(customLogger)
 
 	api.RegisterRoutes(app, svc)
 

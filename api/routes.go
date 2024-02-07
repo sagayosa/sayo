@@ -18,5 +18,5 @@ func RegisterRoutes(app *iris.Application, svc *servicecontext.ServiceContext) {
 
 	app.Get("/plugin", plugin.Plugins(svc))
 
-	app.Post("/proxy/core/voice/command", core.CommandVoice(svc))
+	app.Post("/proxy/core/command/voice", core.CommandVoice(svc))
 }
