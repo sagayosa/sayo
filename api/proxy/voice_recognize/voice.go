@@ -1,4 +1,4 @@
-package core
+package voicerecognize
 
 import (
 	servicecontext "sayo_framework/pkg/service_context"
@@ -14,28 +14,29 @@ import (
 )
 
 /*
-POST /proxy/core/command/voice
+POST /proxy/voice_recognize/voice
 
 	json: {
 		path string
 	}
 */
-func CommandVoice(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
+func Voice(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 	return sayoiris.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
-		req := &apitype.CommandVoiceReq{}
+		req := &apitype.VoiceReq{}
 		if err := ctx.ReadJSON(&req); err != nil {
 			return baseresp.NewBaseRespByError(err), err
 		}
 
-		modules := module.GetInstance().GetModulesByRole(constant.RoleCore)
+		modules := module.GetInstance().GetModulesByRole(constant.RoleVoiceRecognize)
 		if len(modules) == 0 {
 			return baseresp.NewBaseRespByError(sayoerror.ErrNoAIModule), sayoerror.ErrNoAIModule
 		}
 
-		if err := sayoinnerhttp.CoreVoiceCommand(modules[0].GetIPInfo(), req.Path); err != nil {
-			return baseresp.NewBaseRespByError(err), err
+		result, err := sayoinnerhttp.PostVoiceRecognizeLocalFile(modules[0].GetIPInfo(), req.Path)
+		if err != nil {
+			return baseresp.NewBaseRespByError(sayoerror.ErrAIChatFailed), err
 		}
 
-		return baseresp.NewSuccessResp(nil), nil
+		return baseresp.NewSuccessResp(result), nil
 	})
 }

@@ -7,3 +7,7 @@ type CommandVoiceReq struct {
 type AIDecisionRootCommandReq struct {
 	UserCommand string `json:"usercommand"`
 }
+
+type VoiceReq struct {
+	Path string `json:"path"`
+}

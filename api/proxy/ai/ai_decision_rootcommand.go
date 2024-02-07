@@ -16,7 +16,7 @@ import (
 /*
 POST /proxy/ai/chat/completions
 
-	params: {
+	json: {
 		usercommand string
 	}
 */
