@@ -29,7 +29,7 @@ func CallCoreToPullCenter(svc *servicecontext.ServiceContext) {
 		for {
 			time.Sleep(5 * time.Second)
 			if err := callCoreToPullCenter(svc); err != nil {
-				sayolog.Err(err).Error(1)
+				sayolog.Err(err).Error()
 				continue
 			}
 
@@ -39,6 +39,6 @@ func CallCoreToPullCenter(svc *servicecontext.ServiceContext) {
 
 	go func() {
 		f()
-		sayolog.Msg("%v", "core successfully pulled the module center").Info(1)
+		sayolog.Msg("%v", "core successfully pulled the module center").Info()
 	}()
 }
