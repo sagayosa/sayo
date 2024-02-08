@@ -13,6 +13,7 @@ import (
 type ServiceContext struct {
 	Cfg          config.Config
 	ModuleCenter *module.Center
+	PluginList   *config.PluginList
 }
 
 func (s *ServiceContext) GetAddr() string {
@@ -24,9 +25,14 @@ func NewServiceContext() *ServiceContext {
 	if err := utils.JSON(constant.ConfigFile, cfg); err != nil {
 		panic(err)
 	}
+	list := &config.PluginList{}
+	if err := utils.JSON(cfg.PluginsList, list); err != nil {
+		panic(err)
+	}
 
 	return &ServiceContext{
 		Cfg:          *cfg,
 		ModuleCenter: module.GetInstance(),
+		PluginList:   list,
 	}
 }

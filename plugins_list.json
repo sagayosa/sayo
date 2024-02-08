@@ -1,0 +1,20 @@
+{
+    "modules": [
+        {
+            "path": "C:\\SoftWare\\Code\\project\\sayo\\sayo_whisper",
+            "active": true
+        },
+        {
+            "path": "C:\\SoftWare\\Code\\project\\sayo\\sayo_ai",
+            "active": true
+        },
+        {
+            "path": "C:\\SoftWare\\Code\\project\\sayo\\sayo_core",
+            "active": true
+        },
+        {
+            "path": "C:\\SoftWare\\Code\\project\\sayo\\sayo_open",
+            "active": true
+        }
+    ]
+}

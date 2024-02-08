@@ -1,4 +1,4 @@
 {
-    "active_plugins_list": "active_plugins_list.json",
+    "plugins_list": "plugins_list.json",
     "port": 8080
 }

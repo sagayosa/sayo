@@ -33,3 +33,9 @@ type PullCenterReq struct{}
 type PullCenterResp struct {
 	Center *module.Center `json:"center"`
 }
+
+type GetAllModulesReq struct{}
+
+type GetAllModulesResp struct {
+	Modules []module.ModuleInterface `json:"modules"`
+}

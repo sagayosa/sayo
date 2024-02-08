@@ -17,24 +17,18 @@ import (
 	utils "github.com/grteen/sayo_utils/utils"
 )
 
-type ActivePlugin struct {
-	ModulePaths []string `json:"modules"`
-}
-
 func RegisterModulesByList(svc *servicecontext.ServiceContext) (*servicetype.RegisterModulesResp, error) {
-	active := &ActivePlugin{}
-	if err := utils.JSON(svc.Cfg.ActivePluginsList, active); err != nil {
-		return nil, err
-	}
-
 	resp := &servicetype.RegisterModulesResp{Modules: make([]*servicetype.RegisterModulesRespModule, 0)}
-	for _, p := range active.ModulePaths {
-		res, err := sendRequest(svc, p)
+	for _, p := range svc.PluginList.Modules {
+		if !p.Active {
+			continue
+		}
+		res, err := sendRequest(svc, p.ConfigPath)
 		if err != nil {
 			sayolog.Err(err)
 			continue
 		}
-		startModules(svc, p)
+		startModules(svc, p.ConfigPath)
 
 		if res != nil {
 			resp.Modules = append(resp.Modules, res.Modules...)
