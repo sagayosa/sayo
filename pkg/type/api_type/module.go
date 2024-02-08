@@ -26,6 +26,9 @@ type GetModuleByIdentifierReq struct {
 type PullCenterReq struct {
 }
 
+type GetAllModulesInfoReq struct {
+}
+
 // type GetModulesResp struct {
 // 	BaseResp
 // }

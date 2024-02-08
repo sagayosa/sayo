@@ -1,6 +1,10 @@
 package servicetype
 
-import "github.com/grteen/sayo_utils/module"
+import (
+	"sayo_framework/pkg/config"
+
+	"github.com/grteen/sayo_utils/module"
+)
 
 type RegisterModuleReqModule struct {
 	ModuleConfigPath string `json:"path"`
@@ -34,8 +38,8 @@ type PullCenterResp struct {
 	Center *module.Center `json:"center"`
 }
 
-type GetAllModulesReq struct{}
+type GetAllModulesInfoReq struct{}
 
-type GetAllModulesResp struct {
-	Modules []module.ModuleInterface `json:"modules"`
+type GetAllModulesInfoResp struct {
+	*config.PluginList
 }

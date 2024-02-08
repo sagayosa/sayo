@@ -25,3 +25,10 @@ func PullCenterReq(req *apitype.PullCenterReq) *servicetype.PullCenterReq {
 
 	return res
 }
+
+func GetAllModulesInfoReq(req *apitype.GetAllModulesInfoReq) *servicetype.GetAllModulesInfoReq {
+	res := &servicetype.GetAllModulesInfoReq{}
+	FillSameField(req, res)
+
+	return res
+}
