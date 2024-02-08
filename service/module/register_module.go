@@ -1,8 +1,12 @@
 package module
 
 import (
+	"fmt"
+	"os/exec"
 	"sayo_framework/pkg/constant"
+	servicecontext "sayo_framework/pkg/service_context"
 	servicetype "sayo_framework/pkg/type/service_type"
+	"strconv"
 
 	"github.com/grteen/sayo_utils/module"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
@@ -63,6 +67,16 @@ func (s *ModuleServer) registerModule(m *servicetype.RegisterModuleReqModule) (*
 		}, err
 	}
 
+	if err := s.svc.PluginList.RegisterModule(m.ModuleConfigPath, s.svc.Cfg.PluginsList); err != nil {
+		return &servicetype.RegisterModulesRespModule{
+			Identifier: config.Identifier,
+			ConfigPath: m.ModuleConfigPath,
+			Error:      err.Error(),
+		}, err
+	}
+
+	startModule(s.svc, m.ModuleConfigPath, port)
+
 	return nil, nil
 }
 
@@ -101,5 +115,34 @@ func (s *ModuleServer) registerPlugin(m *servicetype.RegisterModuleReqModule, co
 		}, err
 	}
 
+	if err := s.svc.PluginList.RegisterModule(m.ModuleConfigPath, s.svc.Cfg.PluginsList); err != nil {
+		return &servicetype.RegisterModulesRespModule{
+			Identifier: config.Identifier,
+			ConfigPath: m.ModuleConfigPath,
+			Error:      err.Error(),
+		}, err
+	}
+
+	startModule(s.svc, m.ModuleConfigPath, port)
+
 	return nil, nil
+}
+
+func startModule(svc *servicecontext.ServiceContext, modulePath string, port int) error {
+	if err := utils.ChangeRoutineWorkDir(modulePath); err != nil {
+		return err
+	}
+	cfg := &module.ModuleConfig{}
+	if err := utils.JSON(constant.ModuleRegisterFile, cfg); err != nil {
+		return err
+	}
+
+	cmd := exec.Command("cmd", "/C", cfg.EntryPoint, strconv.Itoa(port), svc.GetAddr())
+	err := cmd.Start()
+	if err != nil {
+		return err
+	}
+	fmt.Println(cmd.String())
+
+	return nil
 }

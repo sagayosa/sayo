@@ -4,14 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"os/exec"
-	"sayo_framework/pkg/constant"
 	servicecontext "sayo_framework/pkg/service_context"
 	apitype "sayo_framework/pkg/type/api_type"
 	servicetype "sayo_framework/pkg/type/service_type"
 
 	baseresp "github.com/grteen/sayo_utils/base_resp"
-	"github.com/grteen/sayo_utils/module"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 	sayolog "github.com/grteen/sayo_utils/sayo_log"
 	utils "github.com/grteen/sayo_utils/utils"
@@ -28,7 +25,6 @@ func RegisterModulesByList(svc *servicecontext.ServiceContext) (*servicetype.Reg
 			sayolog.Err(err)
 			continue
 		}
-		startModules(svc, p.ConfigPath)
 
 		if res != nil {
 			resp.Modules = append(resp.Modules, res.Modules...)
@@ -38,45 +34,45 @@ func RegisterModulesByList(svc *servicecontext.ServiceContext) (*servicetype.Reg
 	return resp, nil
 }
 
-func startModules(svc *servicecontext.ServiceContext, active string) {
-	start := func(p string) {
-		err := func() error {
-			if err := utils.ChangeRoutineWorkDir(p); err != nil {
-				return err
-			}
-			cfg := &module.ModuleConfig{}
-			if err := utils.JSON(constant.ModuleRegisterFile, cfg); err != nil {
-				return err
-			}
+// func startModules(svc *servicecontext.ServiceContext, active string) {
+// 	start := func(p string) {
+// 		err := func() error {
+// 			if err := utils.ChangeRoutineWorkDir(p); err != nil {
+// 				return err
+// 			}
+// 			cfg := &module.ModuleConfig{}
+// 			if err := utils.JSON(constant.ModuleRegisterFile, cfg); err != nil {
+// 				return err
+// 			}
 
-			mods := svc.ModuleCenter.GetModuleByIdentifier(cfg.Identifier)
-			if len(mods) == 0 {
-				return fmt.Errorf("no such identifier: %v", cfg.Identifier)
-			}
-			mod := mods[0]
+// 			mods := svc.ModuleCenter.GetModuleByIdentifier(cfg.Identifier)
+// 			if len(mods) == 0 {
+// 				return fmt.Errorf("no such identifier: %v", cfg.Identifier)
+// 			}
+// 			mod := mods[0]
 
-			info := mod.GetIPInfo()
-			_, port, err := utils.SplitIPInfo(info)
-			if err != nil {
-				return err
-			}
+// 			info := mod.GetIPInfo()
+// 			_, port, err := utils.SplitIPInfo(info)
+// 			if err != nil {
+// 				return err
+// 			}
 
-			cmd := exec.Command("cmd", "/C", cfg.EntryPoint, port, svc.GetAddr())
-			err = cmd.Start()
-			if err != nil {
-				return err
-			}
-			fmt.Println(cmd.String())
+// 			cmd := exec.Command("cmd", "/C", cfg.EntryPoint, port, svc.GetAddr())
+// 			err = cmd.Start()
+// 			if err != nil {
+// 				return err
+// 			}
+// 			fmt.Println(cmd.String())
 
-			return nil
-		}()
-		if err != nil {
-			sayolog.Err(sayoerror.ErrRunModulesFailed).Msg(err.Error())
-		}
-	}
+// 			return nil
+// 		}()
+// 		if err != nil {
+// 			sayolog.Err(sayoerror.ErrRunModulesFailed).Msg(err.Error())
+// 		}
+// 	}
 
-	start(active)
-}
+// 	start(active)
+// }
 
 func sendRequest(svc *servicecontext.ServiceContext, active string) (res *servicetype.RegisterModulesResp, err error) {
 	req := &apitype.RegisterModulesReq{}

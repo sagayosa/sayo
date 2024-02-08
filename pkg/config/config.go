@@ -17,7 +17,7 @@ type PluginList struct {
 func (p *PluginList) RegisterModule(ModulePath string, ConfigPath string) error {
 	find := false
 	for _, v := range p.Modules {
-		if v.ConfigPath == ConfigPath {
+		if v.ConfigPath == ModulePath {
 			v.Active = true
 			find = true
 			break
