@@ -1,8 +1,6 @@
 package servicetype
 
 import (
-	"sayo_framework/pkg/config"
-
 	"github.com/grteen/sayo_utils/module"
 )
 
@@ -40,6 +38,11 @@ type PullCenterResp struct {
 
 type GetAllModulesInfoReq struct{}
 
+type ModuleInfo struct {
+	Identifier string `json:"identifiers"`
+	Active     bool   `json:"active"`
+	ConfigPath string `json:"path"`
+}
 type GetAllModulesInfoResp struct {
-	*config.PluginList
+	ModulesInfo []*ModuleInfo `json:"modulesInfo"`
 }

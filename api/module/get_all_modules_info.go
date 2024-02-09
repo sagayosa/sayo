@@ -22,8 +22,11 @@ func AllModulesInfo(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 			return baseresp.NewBaseRespByError(err), err
 		}
 
-		resp := module.NewModuleServer(context.Background(), svc).AllModulesInfo(cast.GetAllModulesInfoReq(req))
+		resp, err := module.NewModuleServer(context.Background(), svc).AllModulesInfo(cast.GetAllModulesInfoReq(req))
+		if err != nil {
+			return baseresp.NewBaseRespByError(err), err
+		}
 
-		return baseresp.NewSuccessResp(resp), nil
+		return baseresp.NewSuccessResp(resp.ModulesInfo), nil
 	})
 }
