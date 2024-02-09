@@ -29,6 +29,10 @@ type PullCenterReq struct {
 type GetAllModulesInfoReq struct {
 }
 
+type UnRegisterModulesReq struct {
+	Identifiers []string `json:"identifiers"`
+}
+
 // type GetModulesResp struct {
 // 	BaseResp
 // }

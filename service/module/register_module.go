@@ -2,6 +2,7 @@ package module
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"sayo_framework/pkg/constant"
 	servicecontext "sayo_framework/pkg/service_context"
@@ -129,6 +130,10 @@ func (s *ModuleServer) registerPlugin(m *servicetype.RegisterModuleReqModule, co
 }
 
 func startModule(svc *servicecontext.ServiceContext, modulePath string, port int) error {
+	origin, err := os.Getwd()
+	if err != nil {
+		return err
+	}
 	if err := utils.ChangeRoutineWorkDir(modulePath); err != nil {
 		return err
 	}
@@ -138,11 +143,14 @@ func startModule(svc *servicecontext.ServiceContext, modulePath string, port int
 	}
 
 	cmd := exec.Command("cmd", "/C", cfg.EntryPoint, strconv.Itoa(port), svc.GetAddr())
-	err := cmd.Start()
+	err = cmd.Start()
 	if err != nil {
 		return err
 	}
 	fmt.Println(cmd.String())
 
+	if err := utils.ChangeRoutineWorkDir(origin); err != nil {
+		return err
+	}
 	return nil
 }

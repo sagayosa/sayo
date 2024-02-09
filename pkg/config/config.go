@@ -1,6 +1,10 @@
 package config
 
-import "github.com/grteen/sayo_utils/utils"
+import (
+	"sync"
+
+	"github.com/grteen/sayo_utils/utils"
+)
 
 type Config struct {
 	PluginsList string `json:"plugins_list"`
@@ -12,9 +16,12 @@ type PluginList struct {
 		ConfigPath string `json:"path"`
 		Active     bool   `json:"active"`
 	} `json:"modules"`
+	ModulesMu sync.Mutex `json:"-"`
 }
 
 func (p *PluginList) RegisterModule(ModulePath string, ConfigPath string) error {
+	p.ModulesMu.Lock()
+	defer p.ModulesMu.Unlock()
 	find := false
 	for _, v := range p.Modules {
 		if v.ConfigPath == ModulePath {
@@ -33,9 +40,11 @@ func (p *PluginList) RegisterModule(ModulePath string, ConfigPath string) error 
 	return utils.JSONPersistence(ConfigPath, p)
 }
 
-func (p *PluginList) UnRegosterModule(ModulePath string, ConfigPath string) error {
+func (p *PluginList) UnRegisterModule(ModulePath string, ConfigPath string) error {
+	p.ModulesMu.Lock()
+	defer p.ModulesMu.Unlock()
 	for _, v := range p.Modules {
-		if v.ConfigPath == ConfigPath {
+		if v.ConfigPath == ModulePath {
 			v.Active = false
 			break
 		}

@@ -13,6 +13,7 @@ import (
 
 func RegisterRoutes(app *iris.Application, svc *servicecontext.ServiceContext) {
 	app.Post("/module", module.RegisterModule(svc))
+	app.Delete("/module", module.UnRegisterModule(svc))
 	app.Get("/module", module.Modules(svc))
 	app.Get("/module/role", module.ModulesByRole(svc))
 	app.Get("/module/pull", module.PullCenter(svc))

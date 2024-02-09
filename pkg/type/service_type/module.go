@@ -46,3 +46,7 @@ type ModuleInfo struct {
 type GetAllModulesInfoResp struct {
 	ModulesInfo []*ModuleInfo `json:"modulesInfo"`
 }
+
+type UnRegisterModulesReq struct {
+	Identifiers []string `json:"identifiers"`
+}

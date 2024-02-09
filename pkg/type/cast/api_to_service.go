@@ -32,3 +32,10 @@ func GetAllModulesInfoReq(req *apitype.GetAllModulesInfoReq) *servicetype.GetAll
 
 	return res
 }
+
+func UnRegisterModulesReq(req *apitype.UnRegisterModulesReq) *servicetype.UnRegisterModulesReq {
+	res := &servicetype.UnRegisterModulesReq{}
+	FillSameField(req, res)
+
+	return res
+}
