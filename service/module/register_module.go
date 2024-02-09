@@ -1,8 +1,6 @@
 package module
 
 import (
-	"fmt"
-	"os"
 	"os/exec"
 	"sayo_framework/pkg/constant"
 	servicecontext "sayo_framework/pkg/service_context"
@@ -124,33 +122,44 @@ func (s *ModuleServer) registerPlugin(m *servicetype.RegisterModuleReqModule, co
 		}, err
 	}
 
-	startModule(s.svc, m.ModuleConfigPath, port)
+	if err := startModule(s.svc, m.ModuleConfigPath, port); err != nil {
+		return &servicetype.RegisterModulesRespModule{
+			Identifier: config.Identifier,
+			ConfigPath: m.ModuleConfigPath,
+			Error:      err.Error(),
+		}, err
+	}
 
 	return nil, nil
 }
 
 func startModule(svc *servicecontext.ServiceContext, modulePath string, port int) error {
-	origin, err := os.Getwd()
-	if err != nil {
-		return err
-	}
-	if err := utils.ChangeRoutineWorkDir(modulePath); err != nil {
-		return err
-	}
-	cfg := &module.ModuleConfig{}
-	if err := utils.JSON(constant.ModuleRegisterFile, cfg); err != nil {
-		return err
-	}
-
-	cmd := exec.Command("cmd", "/C", cfg.EntryPoint, strconv.Itoa(port), svc.GetAddr())
-	err = cmd.Start()
-	if err != nil {
-		return err
-	}
-	fmt.Println(cmd.String())
-
-	if err := utils.ChangeRoutineWorkDir(origin); err != nil {
-		return err
-	}
-	return nil
+	cmd := exec.Command("cmd", "/C", ".\\process\\start_module\\module.exe", modulePath, strconv.Itoa(port), svc.GetAddr())
+	return cmd.Start()
 }
+
+// func startModule(svc *servicecontext.ServiceContext, modulePath string, port int) error {
+// 	origin, err := os.Getwd()
+// 	if err != nil {
+// 		return err
+// 	}
+// 	if err := utils.ChangeRoutineWorkDir(modulePath); err != nil {
+// 		return err
+// 	}
+// 	cfg := &module.ModuleConfig{}
+// 	if err := utils.JSON(constant.ModuleRegisterFile, cfg); err != nil {
+// 		return err
+// 	}
+
+// 	cmd := exec.Command("cmd", "/C", cfg.EntryPoint, strconv.Itoa(port), svc.GetAddr())
+// 	err = cmd.Start()
+// 	if err != nil {
+// 		return err
+// 	}
+// 	fmt.Println(cmd.String())
+
+// 	if err := utils.ChangeRoutineWorkDir(origin); err != nil {
+// 		return err
+// 	}
+// 	return nil
+// }
