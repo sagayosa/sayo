@@ -135,6 +135,7 @@ func (s *ModuleServer) registerPlugin(m *servicetype.RegisterModuleReqModule, co
 
 func startModule(svc *servicecontext.ServiceContext, modulePath string, port int) error {
 	cmd := exec.Command("cmd", "/C", ".\\process\\start_module\\module.exe", modulePath, strconv.Itoa(port), svc.GetAddr())
+	svc.RegisterCmd(cmd)
 	return cmd.Start()
 }
 

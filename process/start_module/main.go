@@ -19,7 +19,7 @@ func startModule(modulePath string, port int, frameworkAddr string) error {
 	}
 
 	cmd := exec.Command("cmd", "/C", cfg.EntryPoint, strconv.Itoa(port), frameworkAddr)
-	err := cmd.Start()
+	err := cmd.Run()
 	if err != nil {
 		return err
 	}

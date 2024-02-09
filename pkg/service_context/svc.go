@@ -1,6 +1,7 @@
 package servicecontext
 
 import (
+	"os/exec"
 	"sayo_framework/pkg/config"
 	"sayo_framework/pkg/constant"
 	"strconv"
@@ -14,10 +15,16 @@ type ServiceContext struct {
 	Cfg          config.Config
 	ModuleCenter *module.Center
 	PluginList   *config.PluginList
+	PluginsCmd   []*exec.Cmd
 }
 
 func (s *ServiceContext) GetAddr() string {
 	return utils.StringPlus("127.0.0.1:", strconv.Itoa(s.Cfg.Port))
+}
+
+func (s *ServiceContext) RegisterCmd(c *exec.Cmd) {
+	s.PluginsCmd = append(s.PluginsCmd, c)
+	go c.Wait()
 }
 
 func NewServiceContext() *ServiceContext {
@@ -34,5 +41,6 @@ func NewServiceContext() *ServiceContext {
 		Cfg:          *cfg,
 		ModuleCenter: module.GetInstance(),
 		PluginList:   list,
+		PluginsCmd:   make([]*exec.Cmd, 0),
 	}
 }
