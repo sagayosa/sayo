@@ -39,9 +39,13 @@ type PullCenterResp struct {
 type GetAllModulesInfoReq struct{}
 
 type ModuleInfo struct {
-	Identifier string `json:"identifier"`
-	Active     bool   `json:"active"`
-	ConfigPath string `json:"path"`
+	Identifier  string `json:"identifier"`
+	Active      bool   `json:"active"`
+	ConfigPath  string `json:"path"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Author      string `json:"author"`
+	Preview     string `json:"preview"`
 }
 type GetAllModulesInfoResp struct {
 	ModulesInfo []*ModuleInfo `json:"modulesInfo"`

@@ -17,11 +17,12 @@ func (s *ModuleServer) AllModulesInfo(req *servicetype.GetAllModulesInfoReq) (re
 			return
 		}
 
-		res = append(res, &servicetype.ModuleInfo{
-			Identifier: config.Identifier,
-			Active:     v.Active,
-			ConfigPath: v.ConfigPath,
-		})
+		info := &servicetype.ModuleInfo{}
+		utils.FillSameField(config, info)
+		info.Active = v.Active
+		info.ConfigPath = v.ConfigPath
+
+		res = append(res, info)
 	}
 
 	return &servicetype.GetAllModulesInfoResp{ModulesInfo: res}, nil
