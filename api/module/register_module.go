@@ -31,7 +31,6 @@ func RegisterModule(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 		if err := ctx.ReadJSON(&req); err != nil {
 			return baseresp.NewBaseRespByError(err), err
 		}
-
 		resp, err := module.NewModuleServer(context.Background(), svc).RegisterModules(cast.RegisterModulesReq(req))
 		if err != nil {
 			return baseresp.NewBaseRespByError(err).WithData(resp), err

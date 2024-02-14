@@ -6,9 +6,11 @@ import (
 	servicecontext "sayo_framework/pkg/service_context"
 	servicetype "sayo_framework/pkg/type/service_type"
 	"strconv"
+	"time"
 
 	"github.com/grteen/sayo_utils/module"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
+	sayolog "github.com/grteen/sayo_utils/sayo_log"
 	utils "github.com/grteen/sayo_utils/utils"
 )
 
@@ -74,7 +76,7 @@ func (s *ModuleServer) registerModule(m *servicetype.RegisterModuleReqModule) (*
 		}, err
 	}
 
-	startModule(s.svc, m.ModuleConfigPath, port)
+	go startModule(s.svc, config.Identifier, m.ModuleConfigPath, port)
 
 	return nil, nil
 }
@@ -122,21 +124,34 @@ func (s *ModuleServer) registerPlugin(m *servicetype.RegisterModuleReqModule, co
 		}, err
 	}
 
-	if err := startModule(s.svc, m.ModuleConfigPath, port); err != nil {
-		return &servicetype.RegisterModulesRespModule{
-			Identifier: config.Identifier,
-			ConfigPath: m.ModuleConfigPath,
-			Error:      err.Error(),
-		}, err
-	}
+	go startModule(s.svc, config.Identifier, m.ModuleConfigPath, port)
 
 	return nil, nil
 }
 
-func startModule(svc *servicecontext.ServiceContext, modulePath string, port int) error {
+func startModule(svc *servicecontext.ServiceContext, identifier string, modulePath string, port int) {
 	cmd := exec.Command("cmd", "/C", ".\\process\\start_module\\module.exe", modulePath, strconv.Itoa(port), svc.GetAddr())
-	svc.RegisterCmd(cmd)
-	return cmd.Start()
+	if err := cmd.Run(); err != nil {
+		sayolog.Err(err).Msg("identifier = %v", identifier).Info()
+	}
+	sayolog.Err(sayoerror.ErrModuleRestart).Msg("identifier = %v", identifier)
+	time.Sleep(5 * time.Second)
+
+	port, err := utils.GetAvailablePort()
+	if err != nil {
+		sayolog.Err(err).Msg("identifier = %v", identifier).Info()
+	}
+
+	modules := svc.ModuleCenter.GetModuleByIdentifier(identifier)
+	if len(modules) == 0 {
+		sayolog.Err(sayoerror.ErrInternalServer).Msg("restart module can not find module of identifier: %v", identifier)
+	}
+	module, ok := modules[0].(*module.Module)
+	if !ok {
+		sayolog.Err(sayoerror.ErrInternalServer).Msg("restart module can not convert module of identifier: %v", identifier)
+	}
+	module.Port = port
+	startModule(svc, identifier, modulePath, port)
 }
 
 // func startModule(svc *servicecontext.ServiceContext, modulePath string, port int) error {
