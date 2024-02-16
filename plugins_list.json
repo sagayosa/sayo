@@ -15,6 +15,10 @@
 		{
 			"path": "C:\\SoftWare\\Code\\project\\sayo\\sayo_open",
 			"active": true
+		},
+		{
+			"path": "C:\\SoftWare\\Code\\project\\sayo\\sayo_desktop\\dist-ssr\\vite-electron",
+			"active": true
 		}
 	]
 }
