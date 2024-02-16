@@ -46,6 +46,7 @@ type ModuleInfo struct {
 	Description string `json:"description"`
 	Author      string `json:"author"`
 	Preview     string `json:"preview"`
+	Address     string `json:"address"`
 }
 type GetAllModulesInfoResp struct {
 	ModulesInfo []*ModuleInfo `json:"modulesInfo"`

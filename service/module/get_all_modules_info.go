@@ -5,6 +5,7 @@ import (
 	servicetype "sayo_framework/pkg/type/service_type"
 
 	"github.com/grteen/sayo_utils/module"
+	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 	utils "github.com/grteen/sayo_utils/utils"
 )
 
@@ -21,6 +22,12 @@ func (s *ModuleServer) AllModulesInfo(req *servicetype.GetAllModulesInfoReq) (re
 		utils.FillSameField(config, info)
 		info.Active = v.Active
 		info.ConfigPath = v.ConfigPath
+
+		modules := s.svc.ModuleCenter.GetModuleByIdentifier(info.Identifier)
+		if len(modules) == 0 {
+			return nil, sayoerror.Msg(sayoerror.ErrNoModule, "identifier = %v", info.Identifier)
+		}
+		info.Address = modules[0].GetIPInfo()
 
 		res = append(res, info)
 	}
