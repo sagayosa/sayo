@@ -4,6 +4,7 @@ import (
 	"sayo_framework/api/module"
 	"sayo_framework/api/proxy/ai"
 	"sayo_framework/api/proxy/core"
+	"sayo_framework/api/proxy/desktop"
 	"sayo_framework/api/proxy/plugin"
 	voicerecognize "sayo_framework/api/proxy/voice_recognize"
 	servicecontext "sayo_framework/pkg/service_context"
@@ -25,4 +26,5 @@ func RegisterRoutes(app *iris.Application, svc *servicecontext.ServiceContext) {
 	app.Post("/proxy/ai/chat/completions", ai.Completion(svc))
 	app.Post("/proxy/voice_recognize/voice", voicerecognize.Voice(svc))
 	app.Post("/proxy/plugin", plugin.Plugin(svc))
+	app.Get("/proxy/desktop/fileselector", desktop.FileSelector(svc))
 }

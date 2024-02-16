@@ -20,3 +20,5 @@ type PluginReq struct {
 	Root  string      `json:"root"`
 	Argvs interface{} `json:"argvs"`
 }
+
+type FileSelectorReq struct{}
