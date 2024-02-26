@@ -28,4 +28,5 @@ func RegisterRoutes(app *iris.Application, svc *servicecontext.ServiceContext) {
 	app.Post("/proxy/plugin", plugin.Plugin(svc))
 	app.Get("/proxy/desktop/fileselector", desktop.FileSelector(svc))
 	// app.Post("/proxy/desktop/hotkey", desktop.RegisterHotKey(svc))
+	app.Post("/proxy/desktop/window", desktop.NewWindow(svc))
 }

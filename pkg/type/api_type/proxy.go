@@ -28,3 +28,10 @@ type RegisterHotKeyReq struct {
 	Url        string `json:"url"`
 	Key        string `json:"key"`
 }
+
+type NewWindowReq struct {
+	Theme  string      `json:"theme"`
+	Url    string      `json:"url"`
+	Frame  bool        `json:"frame"`
+	Option interface{} `json:"option"`
+}
