@@ -22,3 +22,9 @@ type PluginReq struct {
 }
 
 type FileSelectorReq struct{}
+
+type RegisterHotKeyReq struct {
+	Identifier string `json:"identifier"`
+	Url        string `json:"url"`
+	Key        string `json:"key"`
+}
