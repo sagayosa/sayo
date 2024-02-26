@@ -10,6 +10,7 @@ import (
 
 	"github.com/grteen/sayo_utils/module"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
+	"github.com/grteen/sayo_utils/sayo_inner_http/proxy"
 	sayolog "github.com/grteen/sayo_utils/sayo_log"
 	utils "github.com/grteen/sayo_utils/utils"
 )
@@ -125,6 +126,7 @@ func (s *ModuleServer) registerPlugin(m *servicetype.RegisterModuleReqModule, co
 	}
 
 	go startModule(s.svc, config.Identifier, m.ModuleConfigPath, port)
+	go registerHotKey(s.svc, config)
 
 	return nil, nil
 }
@@ -179,3 +181,24 @@ func startModule(svc *servicecontext.ServiceContext, identifier string, modulePa
 // 	}
 // 	return nil
 // }
+
+func registerHotKey(svc *servicecontext.ServiceContext, config *module.ModuleConfig) {
+	f := func(v *module.HotKey) {
+		for {
+			if err := proxy.RegisterHotKey(svc.GetAddr(), &proxy.RegisterHotKeyReq{
+				Identifier: config.Identifier,
+				Url:        v.Url,
+				Key:        v.Key,
+			}); err != nil {
+				sayolog.Err(sayoerror.ErrRegisterHotKeyFailed).Msg(
+					"identifier = %v key = %v url = %v", config.Identifier, v.Key, v.Url).Error()
+			} else {
+				return
+			}
+			time.Sleep(5 * time.Second)
+		}
+	}
+	for _, v := range config.HotKeys {
+		go f(v)
+	}
+}
