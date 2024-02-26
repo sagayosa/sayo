@@ -23,7 +23,6 @@ POST /proxy/desktop/window
 		frame: boolean,
 
 		the detail of option is in https://www.electronjs.org/zh/docs/latest/api/structures/browser-window-options
-		if you want to use the default option, simply set the option to {}, but it cannot be null
 		option: interface{}
 	}
 */
