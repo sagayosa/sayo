@@ -25,7 +25,7 @@ func Plugin(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 			return baseresp.NewBaseRespByError(err), err
 		}
 
-		plugins := svc.ModuleCenter.GetPluginByRoot(req.Root)
+		plugins := svc.ModuleCenter.GetModuleByRoot(req.Root)
 		if len(plugins) == 0 {
 			return nil, sayoerror.Msg(sayoerror.ErrNoPluginOfRoot, "root = %v", req.Root)
 		}

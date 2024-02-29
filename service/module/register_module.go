@@ -100,7 +100,7 @@ func (s *ModuleServer) registerPlugin(m *servicetype.RegisterModuleReqModule, co
 			Error:      err.Error(),
 		}, err
 	}
-	plugin := &module.Plugin{
+	plugin := &module.Module{
 		ModuleInfo: module.ModuleInfo{
 			ModuleConfig: *config,
 			ConfigPath:   registerPath,
@@ -148,10 +148,7 @@ func startModule(svc *servicecontext.ServiceContext, identifier string, modulePa
 	if len(modules) == 0 {
 		sayolog.Err(sayoerror.ErrInternalServer).Msg("restart module can not find module of identifier: %v", identifier)
 	}
-	module, ok := modules[0].(*module.Module)
-	if !ok {
-		sayolog.Err(sayoerror.ErrInternalServer).Msg("restart module can not convert module of identifier: %v", identifier)
-	}
+	module := modules[0]
 	module.Port = port
 	startModule(svc, identifier, modulePath, port)
 }
