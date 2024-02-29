@@ -55,3 +55,15 @@ type GetAllModulesInfoResp struct {
 type UnRegisterModulesReq struct {
 	Identifiers []string `json:"identifiers"`
 }
+
+type GetRootsReq struct{}
+
+type Command struct {
+	Root       string        `json:"root"`
+	Args       []*module.Arg `json:"args"`
+	ModuleInfo *ModuleInfo   `json:"moduleinfo"`
+}
+
+type GetRootsResp struct {
+	Cmds []*Command `json:"cmds"`
+}

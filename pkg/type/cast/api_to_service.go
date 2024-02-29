@@ -39,3 +39,10 @@ func UnRegisterModulesReq(req *apitype.UnRegisterModulesReq) *servicetype.UnRegi
 
 	return res
 }
+
+func GetRootsReq(req *apitype.GetRootsReq) *servicetype.GetRootsReq {
+	res := &servicetype.GetRootsReq{}
+	FillSameField(req, res)
+
+	return res
+}

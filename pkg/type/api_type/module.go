@@ -33,6 +33,8 @@ type UnRegisterModulesReq struct {
 	Identifiers []string `json:"identifiers"`
 }
 
+type GetRootsReq struct{}
+
 // type GetModulesResp struct {
 // 	BaseResp
 // }
