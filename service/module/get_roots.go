@@ -16,9 +16,9 @@ func (s *ModuleServer) Roots(req *servicetype.GetRootsReq) (resp *servicetype.Ge
 			if declare.Root == root {
 				args := []*module.Arg{}
 				for _, v := range declare.Args {
-					args = append(cmd.Args, &v)
+					arg := v
+					args = append(args, &arg)
 				}
-
 				cmd.Root = root
 				cmd.Args = args
 				cmd.ModuleInfo = &servicetype.ModuleInfo{
