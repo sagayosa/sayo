@@ -1,6 +1,7 @@
 package plugin
 
 import (
+	"fmt"
 	servicecontext "sayo_framework/pkg/service_context"
 
 	baseresp "github.com/grteen/sayo_utils/base_resp"
@@ -27,7 +28,7 @@ func Plugin(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 
 		plugins := svc.ModuleCenter.GetModuleByRoot(req.Root)
 		if len(plugins) == 0 {
-			return nil, sayoerror.Msg(sayoerror.ErrNoPluginOfRoot, "root = %v", req.Root)
+			return nil, sayoerror.ErrMsg(sayoerror.ErrNoPluginOfRoot, fmt.Sprintf("root = %v", req.Root))
 		}
 		plugin := plugins[0]
 

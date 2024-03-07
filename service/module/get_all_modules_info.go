@@ -1,6 +1,7 @@
 package module
 
 import (
+	"fmt"
 	"sayo_framework/pkg/constant"
 	servicetype "sayo_framework/pkg/type/service_type"
 
@@ -25,7 +26,7 @@ func (s *ModuleServer) AllModulesInfo(req *servicetype.GetAllModulesInfoReq) (re
 
 		modules := s.svc.ModuleCenter.GetModuleByIdentifier(info.Identifier)
 		if len(modules) == 0 {
-			return nil, sayoerror.Msg(sayoerror.ErrNoModule, "identifier = %v", info.Identifier)
+			return nil, sayoerror.ErrMsg(sayoerror.ErrNoModule, fmt.Sprintf("identifier = %v", info.Identifier))
 		}
 		info.Address = modules[0].GetIPInfo()
 
