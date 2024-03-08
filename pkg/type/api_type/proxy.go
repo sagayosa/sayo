@@ -35,3 +35,7 @@ type NewWindowReq struct {
 	Frame  bool        `json:"frame"`
 	Option interface{} `json:"option"`
 }
+
+type WindowHideReq struct {
+	UUID string `json:"uuid"`
+}

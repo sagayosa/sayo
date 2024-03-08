@@ -30,4 +30,5 @@ func RegisterRoutes(app *iris.Application, svc *servicecontext.ServiceContext) {
 	app.Get("/proxy/desktop/fileselector", desktop.FileSelector(svc))
 	app.Post("/proxy/desktop/hotkey", desktop.RegisterHotKey(svc))
 	app.Post("/proxy/desktop/window", desktop.NewWindow(svc))
+	app.Put("/proxy/desktop/window/hide", desktop.WindowHide(svc))
 }

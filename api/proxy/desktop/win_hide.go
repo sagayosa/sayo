@@ -10,25 +10,19 @@ import (
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 	sayoinnerhttp "github.com/grteen/sayo_utils/sayo_inner_http"
 	sayoiris "github.com/grteen/sayo_utils/sayo_iris"
-	"github.com/grteen/sayo_utils/utils"
 	"github.com/kataras/iris/v12"
 )
 
 /*
-POST /proxy/desktop/window
+PUT /proxy/desktop/window/hide
 
 	json: {
-		theme: string,
-		url: string,
-		frame: boolean,
-
-		the detail of option is in https://www.electronjs.org/zh/docs/latest/api/structures/browser-window-options
-		option: interface{}
+		uuid string
 	}
 */
-func NewWindow(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
+func WindowHide(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 	return sayoiris.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
-		req := &apitype.NewWindowReq{}
+		req := &apitype.WindowHideReq{}
 		if err := ctx.ReadJSON(&req); err != nil {
 			return baseresp.NewBaseRespByError(err), err
 		}
@@ -38,13 +32,10 @@ func NewWindow(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 			return baseresp.NewBaseRespByError(sayoerror.ErrNoDesktopModule), sayoerror.ErrNoDesktopModule
 		}
 
-		r := &sayoinnerhttp.NewWindowReq{}
-		utils.FillSameField(req, r)
-		uuid, err := sayoinnerhttp.NewWindow(modules[0].GetIPInfo(), r)
-		if err != nil {
+		if err := sayoinnerhttp.WindowHide(modules[0].GetIPInfo(), req.UUID); err != nil {
 			return baseresp.NewBaseRespByError(err), err
 		}
 
-		return baseresp.NewSuccessResp(uuid), nil
+		return baseresp.NewSuccessResp(nil), nil
 	})
 }
