@@ -39,3 +39,13 @@ type NewWindowReq struct {
 type WindowHideReq struct {
 	UUID string `json:"uuid"`
 }
+
+type WindowShowReq struct {
+	UUID string `json:"uuid"`
+}
+
+type WindowSetPositionReq struct {
+	UUID string `json:"uuid"`
+	X    int    `json:"x"`
+	Y    int    `json:"y"`
+}

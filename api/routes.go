@@ -32,4 +32,5 @@ func RegisterRoutes(app *iris.Application, svc *servicecontext.ServiceContext) {
 	app.Post("/proxy/desktop/window", desktop.NewWindow(svc))
 	app.Put("/proxy/desktop/window/hide", desktop.WindowHide(svc))
 	app.Put("/proxy/desktop/window/show", desktop.WindowShow(svc))
+	app.Put("/proxy/desktop/window/position", desktop.WindowSetPosition(svc))
 }

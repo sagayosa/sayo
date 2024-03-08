@@ -14,15 +14,17 @@ import (
 )
 
 /*
-PUT /proxy/desktop/window/show
+PUT /proxy/desktop/window/position
 
 	json: {
 		uuid string
+		x int
+		y int
 	}
 */
-func WindowShow(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
+func WindowSetPosition(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 	return sayoiris.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
-		req := &apitype.WindowShowReq{}
+		req := &apitype.WindowSetPositionReq{}
 		if err := ctx.ReadJSON(&req); err != nil {
 			return baseresp.NewBaseRespByError(err), err
 		}
@@ -32,7 +34,7 @@ func WindowShow(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 			return baseresp.NewBaseRespByError(sayoerror.ErrNoDesktopModule), sayoerror.ErrNoDesktopModule
 		}
 
-		if err := sayoinnerhttp.WindowShow(modules[0].GetIPInfo(), req.UUID); err != nil {
+		if err := sayoinnerhttp.WindowSetPosition(modules[0].GetIPInfo(), req.UUID, req.X, req.Y); err != nil {
 			return baseresp.NewBaseRespByError(err), err
 		}
 
