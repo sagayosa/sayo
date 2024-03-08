@@ -39,47 +39,49 @@ func (s *ModuleServer) registerModule(m *servicetype.RegisterModuleReqModule) (*
 		}, err
 	}
 
-	if config.Role == module.RolePlugin {
-		return s.registerPlugin(m, config)
-	}
+	// if config.Role == module.RolePlugin {
+	// 	return s.registerPlugin(m, config)
+	// }
 
-	port, err := utils.GetAvailablePort()
-	if err != nil {
-		return &servicetype.RegisterModulesRespModule{
-			Identifier: config.Identifier,
-			ConfigPath: m.ModuleConfigPath,
-			Error:      err.Error(),
-		}, err
-	}
+	// port, err := utils.GetAvailablePort()
+	// if err != nil {
+	// 	return &servicetype.RegisterModulesRespModule{
+	// 		Identifier: config.Identifier,
+	// 		ConfigPath: m.ModuleConfigPath,
+	// 		Error:      err.Error(),
+	// 	}, err
+	// }
 
-	mod := &module.Module{
-		ModuleInfo: module.ModuleInfo{
-			ModuleConfig: *config,
-			ConfigPath:   registerPath,
-			Address:      "127.0.0.1",
-			Port:         port,
-		},
-	}
+	// mod := &module.Module{
+	// 	ModuleInfo: module.ModuleInfo{
+	// 		ModuleConfig: *config,
+	// 		ConfigPath:   registerPath,
+	// 		Address:      "127.0.0.1",
+	// 		Port:         port,
+	// 	},
+	// }
 
-	if err := s.svc.ModuleCenter.RegisterModule(mod); err != nil {
-		return &servicetype.RegisterModulesRespModule{
-			Identifier: config.Identifier,
-			ConfigPath: m.ModuleConfigPath,
-			Error:      err.Error(),
-		}, err
-	}
+	// if err := s.svc.ModuleCenter.RegisterModule(mod); err != nil {
+	// 	return &servicetype.RegisterModulesRespModule{
+	// 		Identifier: config.Identifier,
+	// 		ConfigPath: m.ModuleConfigPath,
+	// 		Error:      err.Error(),
+	// 	}, err
+	// }
 
-	if err := s.svc.PluginList.RegisterModule(m.ModuleConfigPath, s.svc.Cfg.PluginsList); err != nil {
-		return &servicetype.RegisterModulesRespModule{
-			Identifier: config.Identifier,
-			ConfigPath: m.ModuleConfigPath,
-			Error:      err.Error(),
-		}, err
-	}
+	// if err := s.svc.PluginList.RegisterModule(m.ModuleConfigPath, s.svc.Cfg.PluginsList); err != nil {
+	// 	return &servicetype.RegisterModulesRespModule{
+	// 		Identifier: config.Identifier,
+	// 		ConfigPath: m.ModuleConfigPath,
+	// 		Error:      err.Error(),
+	// 	}, err
+	// }
 
-	go startModule(s.svc, config.Identifier, m.ModuleConfigPath, port)
+	// go startModule(s.svc, config.Identifier, m.ModuleConfigPath, port)
 
-	return nil, nil
+	// return nil, nil
+
+	return s.registerPlugin(m, config)
 }
 
 func (s *ModuleServer) registerPlugin(m *servicetype.RegisterModuleReqModule, config *module.ModuleConfig) (*servicetype.RegisterModulesRespModule, error) {
