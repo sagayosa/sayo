@@ -49,3 +49,5 @@ type WindowSetPositionReq struct {
 	X    int    `json:"x"`
 	Y    int    `json:"y"`
 }
+
+type CursorPositionReq struct{}
