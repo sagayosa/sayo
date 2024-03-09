@@ -33,6 +33,7 @@ func RegisterRoutes(app *iris.Application, svc *servicecontext.ServiceContext) {
 	app.Put("/proxy/desktop/window/hide", desktop.WindowHide(svc))
 	app.Put("/proxy/desktop/window/show", desktop.WindowShow(svc))
 	app.Put("/proxy/desktop/window/position", desktop.WindowSetPosition(svc))
+	app.Put("/proxy/desktop/window/url", desktop.WindowLoadURL(svc))
 	app.Get("/proxy/desktop/info/cursorposition", desktop.CursorPosition(svc))
 	app.Get("/proxy/desktop/info/workarea", desktop.WorkArea(svc))
 }

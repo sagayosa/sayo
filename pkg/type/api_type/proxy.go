@@ -51,3 +51,8 @@ type WindowSetPositionReq struct {
 }
 
 type CursorPositionReq struct{}
+
+type WindowLoadURLReq struct {
+	UUID string `json:"uuid"`
+	URL  string `json:"url"`
+}
