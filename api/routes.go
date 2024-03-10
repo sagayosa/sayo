@@ -23,6 +23,8 @@ func RegisterRoutes(app *iris.Application, svc *servicecontext.ServiceContext) {
 	app.Get("/module/info", module.AllModulesInfo(svc))
 	app.Get("/module/roots", module.Roots(svc))
 
+	app.Put("/proxy/desktop/window/:way/:uuid", desktop.PutWindow(svc))
+
 	app.Post("/proxy/core/command/voice", core.CommandVoice(svc))
 	app.Post("/proxy/ai/chat/completions", ai.Completion(svc))
 	app.Post("/proxy/voice_recognize/voice", voicerecognize.Voice(svc))
@@ -30,10 +32,10 @@ func RegisterRoutes(app *iris.Application, svc *servicecontext.ServiceContext) {
 	app.Get("/proxy/desktop/fileselector", desktop.FileSelector(svc))
 	app.Post("/proxy/desktop/hotkey", desktop.RegisterHotKey(svc))
 	app.Post("/proxy/desktop/window", desktop.NewWindow(svc))
-	app.Put("/proxy/desktop/window/hide", desktop.WindowHide(svc))
-	app.Put("/proxy/desktop/window/show", desktop.WindowShow(svc))
-	app.Put("/proxy/desktop/window/position", desktop.WindowSetPosition(svc))
-	app.Put("/proxy/desktop/window/url", desktop.WindowLoadURL(svc))
+	// app.Put("/proxy/desktop/window/hide", desktop.WindowHide(svc))
+	// app.Put("/proxy/desktop/window/show", desktop.WindowShow(svc))
+	// app.Put("/proxy/desktop/window/position", desktop.WindowSetPosition(svc))
+	// app.Put("/proxy/desktop/window/url", desktop.WindowLoadURL(svc))
 	app.Get("/proxy/desktop/info/cursorposition", desktop.CursorPosition(svc))
 	app.Get("/proxy/desktop/info/workarea", desktop.WorkArea(svc))
 }

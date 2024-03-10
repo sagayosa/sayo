@@ -3,7 +3,7 @@ module sayo_framework
 go 1.21.6
 
 require (
-	github.com/grteen/sayo_utils v0.0.0-20240309031247-764f8a4c6efe
+	github.com/grteen/sayo_utils v0.0.0-20240310042832-ee799f3c7ffc
 	github.com/kataras/iris/v12 v12.2.10
 )
 

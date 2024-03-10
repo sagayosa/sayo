@@ -65,6 +65,8 @@ github.com/grteen/sayo_utils v0.0.0-20240309024248-d6f6af714efd h1:hlApKtnGP8xUA
 github.com/grteen/sayo_utils v0.0.0-20240309024248-d6f6af714efd/go.mod h1:huVUuk6as65JX94/6aAtFDouRhlh1UMV3DZjXPrfaog=
 github.com/grteen/sayo_utils v0.0.0-20240309031247-764f8a4c6efe h1:kuQ0kS+S+trkwn9uzAy0QOJn2zyHRYLeSDKVNXw5uCE=
 github.com/grteen/sayo_utils v0.0.0-20240309031247-764f8a4c6efe/go.mod h1:huVUuk6as65JX94/6aAtFDouRhlh1UMV3DZjXPrfaog=
+github.com/grteen/sayo_utils v0.0.0-20240310042832-ee799f3c7ffc h1:Sd3PFX2djkOEKKrB7XEnnYzEqQ/FOGdhPfvQ/vUdrTo=
+github.com/grteen/sayo_utils v0.0.0-20240310042832-ee799f3c7ffc/go.mod h1:huVUuk6as65JX94/6aAtFDouRhlh1UMV3DZjXPrfaog=
 github.com/imkira/go-interpol v1.1.0 h1:KIiKr0VSG2CUW1hl1jpiyuzuJeKUUpC8iM1AIE7N1Vk=
 github.com/imkira/go-interpol v1.1.0/go.mod h1:z0h2/2T3XF8kyEPpRgJ3kmNv+C43p+I/CoI+jC3w2iA=
 github.com/iris-contrib/httpexpect/v2 v2.15.2 h1:T9THsdP1woyAqKHwjkEsbCnMefsAFvk8iJJKokcJ3Go=
