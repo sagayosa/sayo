@@ -2,7 +2,6 @@ package desktop
 
 import (
 	servicecontext "sayo_framework/pkg/service_context"
-	apitype "sayo_framework/pkg/type/api_type"
 
 	baseresp "github.com/grteen/sayo_utils/base_resp"
 	"github.com/grteen/sayo_utils/constant"
@@ -14,28 +13,29 @@ import (
 )
 
 /*
-PUT /proxy/desktop/window/show
+GET /proxy/desktop/window/:way/:uuid
 
-	json: {
-		uuid string
-	}
+	query: interface{}
 */
-func WindowShow(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
+func GetWindow(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 	return sayoiris.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
-		req := &apitype.WindowShowReq{}
-		if err := ctx.ReadJSON(&req); err != nil {
+		var argument = map[string]interface{}{}
+		if err := ctx.ReadQuery(&argument); err != nil {
 			return baseresp.NewBaseRespByError(err), err
 		}
+		way := ctx.Params().GetStringDefault("way", "")
+		uuid := ctx.Params().GetStringDefault("uuid", "")
 
 		modules := module.GetInstance().GetModulesByRole(constant.RoleDesktop)
 		if len(modules) == 0 {
 			return baseresp.NewBaseRespByError(sayoerror.ErrNoDesktopModule), sayoerror.ErrNoDesktopModule
 		}
 
-		if err := sayoinnerhttp.WindowShow(modules[0].GetIPInfo(), req.UUID); err != nil {
+		result, err := sayoinnerhttp.GetWindow(modules[0].GetIPInfo(), way, uuid, argument)
+		if err != nil {
 			return baseresp.NewBaseRespByError(err), err
 		}
 
-		return baseresp.NewSuccessResp(nil), nil
+		return baseresp.NewSuccessResp(result), nil
 	})
 }
