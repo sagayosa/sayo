@@ -30,10 +30,11 @@ type RegisterHotKeyReq struct {
 }
 
 type NewWindowReq struct {
-	Theme  string      `json:"theme"`
-	Url    string      `json:"url"`
-	Frame  bool        `json:"frame"`
-	Option interface{} `json:"option"`
+	Theme    string      `json:"theme"`
+	Url      string      `json:"url"`
+	Frame    bool        `json:"frame"`
+	Dragable bool        `json:"dragable"`
+	Option   interface{} `json:"option"`
 }
 
 type WindowHideReq struct {
