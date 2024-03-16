@@ -11,6 +11,7 @@ import (
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 	sayolog "github.com/grteen/sayo_utils/sayo_log"
 	"github.com/grteen/sayo_utils/utils"
+	"github.com/kataras/iris/v12/middleware/cors"
 	"github.com/kataras/iris/v12/middleware/logger"
 
 	"github.com/kataras/iris/v12"
@@ -47,6 +48,7 @@ func main() {
 
 	app := iris.New()
 	app.Use(iris.Compression)
+	app.UseRouter(cors.New().AllowOrigin("*").Handler())
 	customLogger := logger.New(logger.Config{
 		Status:             true,
 		IP:                 true,
