@@ -8,8 +8,8 @@ import (
 	"github.com/grteen/sayo_utils/constant"
 	"github.com/grteen/sayo_utils/module"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
-	sayoinnerhttp "github.com/grteen/sayo_utils/sayo_inner_http"
 	sayoiris "github.com/grteen/sayo_utils/sayo_iris"
+	"github.com/grteen/sayo_utils/sayo_rpc/sdk"
 	"github.com/kataras/iris/v12"
 )
 
@@ -30,7 +30,7 @@ func CursorPosition(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 			return baseresp.NewBaseRespByError(sayoerror.ErrNoDesktopModule), sayoerror.ErrNoDesktopModule
 		}
 
-		x, y, err := sayoinnerhttp.CursorPosition(modules[0].GetIPInfo())
+		x, y, err := sdk.CursorPosition(modules[0].GetIPInfo())
 		if err != nil {
 			return baseresp.NewBaseRespByError(err), err
 		}

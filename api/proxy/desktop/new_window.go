@@ -8,8 +8,8 @@ import (
 	"github.com/grteen/sayo_utils/constant"
 	"github.com/grteen/sayo_utils/module"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
-	sayoinnerhttp "github.com/grteen/sayo_utils/sayo_inner_http"
 	sayoiris "github.com/grteen/sayo_utils/sayo_iris"
+	"github.com/grteen/sayo_utils/sayo_rpc/sdk"
 	"github.com/grteen/sayo_utils/utils"
 	"github.com/kataras/iris/v12"
 )
@@ -38,9 +38,9 @@ func NewWindow(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 			return baseresp.NewBaseRespByError(sayoerror.ErrNoDesktopModule), sayoerror.ErrNoDesktopModule
 		}
 
-		r := &sayoinnerhttp.NewWindowReq{}
+		r := &sdk.NewWindowReq{}
 		utils.FillSameField(req, r)
-		uuid, err := sayoinnerhttp.NewWindow(modules[0].GetIPInfo(), r)
+		uuid, err := sdk.NewWindow(modules[0].GetIPInfo(), r)
 		if err != nil {
 			return baseresp.NewBaseRespByError(err), err
 		}
