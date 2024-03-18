@@ -11,6 +11,7 @@ import (
 	baseresp "github.com/grteen/sayo_utils/base_resp"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 	sayolog "github.com/grteen/sayo_utils/sayo_log"
+	sayorpc "github.com/grteen/sayo_utils/sayo_rpc"
 	utils "github.com/grteen/sayo_utils/utils"
 )
 
@@ -81,7 +82,7 @@ func sendRequest(svc *servicecontext.ServiceContext, active string) (res *servic
 		ModuleConfigPath: active,
 	})
 
-	code, body, err := utils.Post(utils.StringPlus("http://", svc.GetAddr(), "/module"), req)
+	code, body, err := sayorpc.Post(utils.StringPlus("http://", svc.GetAddr(), "/module"), req)
 	if err != nil {
 		return
 	}
