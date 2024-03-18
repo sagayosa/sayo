@@ -10,8 +10,9 @@ import (
 
 	"github.com/grteen/sayo_utils/module"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
-	"github.com/grteen/sayo_utils/sayo_inner_http/proxy"
 	sayolog "github.com/grteen/sayo_utils/sayo_log"
+	"github.com/grteen/sayo_utils/sayo_rpc/sdk"
+	"github.com/grteen/sayo_utils/sayo_rpc/sdk/proxy"
 	utils "github.com/grteen/sayo_utils/utils"
 )
 
@@ -184,7 +185,7 @@ func startModule(svc *servicecontext.ServiceContext, identifier string, modulePa
 func registerHotKey(svc *servicecontext.ServiceContext, config *module.ModuleConfig) {
 	f := func(v *module.HotKey) {
 		for {
-			if err := proxy.RegisterHotKey(svc.GetAddr(), &proxy.RegisterHotKeyReq{
+			if err := proxy.RegisterHotKey(svc.GetAddr(), &sdk.RegisterHotKeyReq{
 				Identifier: config.Identifier,
 				Url:        v.Url,
 				Key:        v.Key,
