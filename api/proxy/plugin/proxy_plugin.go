@@ -8,6 +8,7 @@ import (
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
 	sayoinnerhttp "github.com/grteen/sayo_utils/sayo_inner_http"
 	sayoiris "github.com/grteen/sayo_utils/sayo_iris"
+	"github.com/grteen/sayo_utils/sayo_rpc/sdk"
 	"github.com/kataras/iris/v12"
 )
 
@@ -21,7 +22,7 @@ POST /proxy/plugin
 */
 func Plugin(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 	return sayoiris.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
-		req := &sayoinnerhttp.AIDecisionResp{}
+		req := &sdk.AIDecisionResp{}
 		if err := ctx.ReadJSON(&req); err != nil {
 			return baseresp.NewBaseRespByError(err), err
 		}
