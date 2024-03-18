@@ -6,7 +6,6 @@ import (
 
 	baseresp "github.com/grteen/sayo_utils/base_resp"
 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
-	sayoinnerhttp "github.com/grteen/sayo_utils/sayo_inner_http"
 	sayoiris "github.com/grteen/sayo_utils/sayo_iris"
 	"github.com/grteen/sayo_utils/sayo_rpc/sdk"
 	"github.com/kataras/iris/v12"
@@ -33,7 +32,7 @@ func Plugin(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 		}
 		plugin := plugins[0]
 
-		if err := sayoinnerhttp.PostPlugin(plugin, req); err != nil {
+		if err := sdk.PostPlugin(plugin, req); err != nil {
 			return baseresp.NewBaseRespByError(err), err
 		}
 
