@@ -2,6 +2,7 @@ package api
 
 import (
 	"sayo_framework/api/module"
+	"sayo_framework/api/proxy"
 	"sayo_framework/api/proxy/ai"
 	"sayo_framework/api/proxy/core"
 	"sayo_framework/api/proxy/desktop"
@@ -34,4 +35,6 @@ func RegisterRoutes(app *iris.Application, svc *servicecontext.ServiceContext) {
 	app.Post("/proxy/desktop/window", desktop.NewWindow(svc))
 	app.Get("/proxy/desktop/info/cursorposition", desktop.CursorPosition(svc))
 	app.Get("/proxy/desktop/info/workarea", desktop.WorkArea(svc))
+
+	app.Get("/proxy/:role/:url", proxy.GetProxy(svc))
 }
