@@ -5,7 +5,7 @@ go 1.21.6
 require (
 	github.com/kataras/iris/v12 v12.2.10
 	github.com/sagayosa/goya v0.0.0-20240329075603-849acf6a6abf
-	github.com/sagayosa/sayo_utils v0.0.0-20240330034529-61f5ad74af01
+	github.com/sagayosa/sayo_utils v0.0.0-20240330042618-ef69ae63f875
 )
 
 require (
