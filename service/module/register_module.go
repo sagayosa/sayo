@@ -8,12 +8,12 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/grteen/sayo_utils/module"
-	sayoerror "github.com/grteen/sayo_utils/sayo_error"
-	sayolog "github.com/grteen/sayo_utils/sayo_log"
-	"github.com/grteen/sayo_utils/sayo_rpc/sdk"
-	"github.com/grteen/sayo_utils/sayo_rpc/sdk/proxy"
-	utils "github.com/grteen/sayo_utils/utils"
+	"github.com/sagayosa/sayo_utils/module"
+	sayoerror "github.com/sagayosa/sayo_utils/sayo_error"
+	sayolog "github.com/sagayosa/sayo_utils/sayo_log"
+	"github.com/sagayosa/sayo_utils/sayo_rpc/sdk"
+	"github.com/sagayosa/sayo_utils/sayo_rpc/sdk/proxy"
+	utils "github.com/sagayosa/sayo_utils/utils"
 )
 
 func (s *ModuleServer) RegisterModules(req *servicetype.RegisterModulesReq) (*servicetype.RegisterModulesResp, error) {

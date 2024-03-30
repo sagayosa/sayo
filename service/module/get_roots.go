@@ -3,7 +3,7 @@ package module
 import (
 	servicetype "sayo_framework/pkg/type/service_type"
 
-	"github.com/grteen/sayo_utils/module"
+	"github.com/sagayosa/sayo_utils/module"
 )
 
 func (s *ModuleServer) Roots(req *servicetype.GetRootsReq) (resp *servicetype.GetRootsResp, err error) {

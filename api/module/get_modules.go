@@ -9,8 +9,8 @@ import (
 
 	servicecontext "sayo_framework/pkg/service_context"
 
-	baseresp "github.com/grteen/sayo_utils/base_resp"
-	sayoiris "github.com/grteen/sayo_utils/sayo_iris"
+	baseresp "github.com/sagayosa/sayo_utils/base_resp"
+	sayoiris "github.com/sagayosa/sayo_utils/sayo_iris"
 
 	"github.com/kataras/iris/v12"
 )

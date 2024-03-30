@@ -7,10 +7,10 @@ import (
 	servicetype "sayo_framework/pkg/type/service_type"
 	"sayo_framework/service/module"
 
-	baseresp "github.com/grteen/sayo_utils/base_resp"
-	"github.com/grteen/sayo_utils/constant"
-	sayoiris "github.com/grteen/sayo_utils/sayo_iris"
 	"github.com/kataras/iris/v12"
+	baseresp "github.com/sagayosa/sayo_utils/base_resp"
+	"github.com/sagayosa/sayo_utils/constant"
+	sayoiris "github.com/sagayosa/sayo_utils/sayo_iris"
 )
 
 /*

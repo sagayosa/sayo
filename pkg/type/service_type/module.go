@@ -1,7 +1,7 @@
 package servicetype
 
 import (
-	"github.com/grteen/sayo_utils/module"
+	"github.com/sagayosa/sayo_utils/module"
 )
 
 type RegisterModuleReqModule struct {

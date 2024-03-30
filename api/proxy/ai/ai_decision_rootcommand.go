@@ -4,12 +4,12 @@ package ai
 // 	servicecontext "sayo_framework/pkg/service_context"
 // 	apitype "sayo_framework/pkg/type/api_type"
 
-// 	baseresp "github.com/grteen/sayo_utils/base_resp"
-// 	"github.com/grteen/sayo_utils/constant"
-// 	"github.com/grteen/sayo_utils/module"
-// 	sayoerror "github.com/grteen/sayo_utils/sayo_error"
-// 	sayoinnerhttp "github.com/grteen/sayo_utils/sayo_inner_http"
-// 	sayoiris "github.com/grteen/sayo_utils/sayo_iris"
+// 	baseresp "github.com/sagayosa/sayo_utils/base_resp"
+// 	"github.com/sagayosa/sayo_utils/constant"
+// 	"github.com/sagayosa/sayo_utils/module"
+// 	sayoerror "github.com/sagayosa/sayo_utils/sayo_error"
+// 	sayoinnerhttp "github.com/sagayosa/sayo_utils/sayo_inner_http"
+// 	sayoiris "github.com/sagayosa/sayo_utils/sayo_iris"
 // 	"github.com/kataras/iris/v12"
 // )
 

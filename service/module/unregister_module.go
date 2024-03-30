@@ -5,8 +5,8 @@ import (
 	servicetype "sayo_framework/pkg/type/service_type"
 	"strings"
 
-	sayolog "github.com/grteen/sayo_utils/sayo_log"
-	"github.com/grteen/sayo_utils/utils"
+	sayolog "github.com/sagayosa/sayo_utils/sayo_log"
+	"github.com/sagayosa/sayo_utils/utils"
 )
 
 func (s *ModuleServer) UnRegisterModules(req *servicetype.UnRegisterModulesReq) {

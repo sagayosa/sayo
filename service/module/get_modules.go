@@ -3,7 +3,7 @@ package module
 import (
 	servicetype "sayo_framework/pkg/type/service_type"
 
-	sayoerror "github.com/grteen/sayo_utils/sayo_error"
+	sayoerror "github.com/sagayosa/sayo_utils/sayo_error"
 )
 
 const (

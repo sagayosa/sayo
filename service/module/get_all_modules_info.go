@@ -5,9 +5,9 @@ import (
 	"sayo_framework/pkg/constant"
 	servicetype "sayo_framework/pkg/type/service_type"
 
-	"github.com/grteen/sayo_utils/module"
-	sayoerror "github.com/grteen/sayo_utils/sayo_error"
-	utils "github.com/grteen/sayo_utils/utils"
+	"github.com/sagayosa/sayo_utils/module"
+	sayoerror "github.com/sagayosa/sayo_utils/sayo_error"
+	utils "github.com/sagayosa/sayo_utils/utils"
 )
 
 func (s *ModuleServer) AllModulesInfo(req *servicetype.GetAllModulesInfoReq) (resp *servicetype.GetAllModulesInfoResp, err error) {

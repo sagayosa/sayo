@@ -8,11 +8,11 @@ import (
 	apitype "sayo_framework/pkg/type/api_type"
 	servicetype "sayo_framework/pkg/type/service_type"
 
-	baseresp "github.com/grteen/sayo_utils/base_resp"
-	sayoerror "github.com/grteen/sayo_utils/sayo_error"
-	sayolog "github.com/grteen/sayo_utils/sayo_log"
-	sayorpc "github.com/grteen/sayo_utils/sayo_rpc"
-	utils "github.com/grteen/sayo_utils/utils"
+	baseresp "github.com/sagayosa/sayo_utils/base_resp"
+	sayoerror "github.com/sagayosa/sayo_utils/sayo_error"
+	sayolog "github.com/sagayosa/sayo_utils/sayo_log"
+	sayorpc "github.com/sagayosa/sayo_utils/sayo_rpc"
+	utils "github.com/sagayosa/sayo_utils/utils"
 )
 
 func RegisterModulesByList(svc *servicecontext.ServiceContext) (*servicetype.RegisterModulesResp, error) {

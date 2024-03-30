@@ -5,8 +5,8 @@ import (
 	"os/exec"
 	"strconv"
 
-	"github.com/grteen/sayo_utils/module"
-	"github.com/grteen/sayo_utils/utils"
+	"github.com/sagayosa/sayo_utils/module"
+	"github.com/sagayosa/sayo_utils/utils"
 )
 
 func startModule(modulePath string, port int, frameworkAddr string) error {

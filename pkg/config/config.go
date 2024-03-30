@@ -3,7 +3,7 @@ package config
 import (
 	"sync"
 
-	"github.com/grteen/sayo_utils/utils"
+	"github.com/sagayosa/sayo_utils/utils"
 )
 
 type Config struct {
