@@ -5,13 +5,15 @@ import (
 	"net/http"
 	servicecontext "sayo_framework/pkg/service_context"
 
-	"github.com/kataras/iris/v12"
 	"github.com/sagayosa/goya"
+	goyawp "github.com/sagayosa/sayo_utils/goya"
+
+	"github.com/kataras/iris/v12"
 	baseresp "github.com/sagayosa/sayo_utils/base_resp"
 	"github.com/sagayosa/sayo_utils/module"
 	sayoerror "github.com/sagayosa/sayo_utils/sayo_error"
 	sayoiris "github.com/sagayosa/sayo_utils/sayo_iris"
-	"github.com/sagayosa/sayo_utils/sayo_rpc/sdk"
+	frameworktypes "github.com/sagayosa/sayo_utils/types/framework"
 	"github.com/sagayosa/sayo_utils/utils"
 )
 
@@ -53,10 +55,11 @@ POST /proxy/plugin
 		root string
 	    argvs {} struct
 	}
+	return data: nil
 */
 func Plugin(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 	return sayoiris.IrisCtxJSONWrap(func(ctx iris.Context) (*baseresp.BaseResp, error) {
-		req := &sdk.AIDecisionResp{}
+		req := &frameworktypes.ProxyPluginReq{}
 		if err := ctx.ReadJSON(&req); err != nil {
 			return baseresp.NewBaseRespByError(err), err
 		}
@@ -67,9 +70,18 @@ func Plugin(svc *servicecontext.ServiceContext) sayoiris.HandlerFunc {
 		}
 		plugin := plugins[0]
 
-		if err := sdk.PostPlugin(plugin, req); err != nil {
+		uri := ""
+		for _, r := range plugin.Declare {
+			if r.Root == req.Root {
+				uri = r.URL
+			}
+		}
+		if uri == "" {
+			err := sayoerror.ErrMsg(sayoerror.ErrPostPluginNoUri, fmt.Sprintf("root = %v", req.Root))
 			return baseresp.NewBaseRespByError(err), err
 		}
+
+		goyawp.Post[any](plugin.GetIPInfo(), uri, req.Argvs)
 
 		return baseresp.NewSuccessResp(nil), nil
 	})
